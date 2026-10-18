@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:chrysonyx_glacium_weave_bronze_block",
+    "themelios:chrysonyx_glacium_weave_bronze_cylinder_large",
+    "themelios:chrysonyx_glacium_weave_bronze_cylinder_small",
+    "themelios:chrysonyx_glacium_weave_bronze_layer",
+    "themelios:chrysonyx_glacium_weave_bronze_layer_vertical",
+    "themelios:chrysonyx_glacium_weave_bronze_post",
+    "themelios:chrysonyx_glacium_weave_bronze_slab",
+    "themelios:chrysonyx_glacium_weave_bronze_slice_horizontal",
+    "themelios:chrysonyx_glacium_weave_bronze_slice_vertical",
+    "themelios:chrysonyx_glacium_weave_bronze_stairs",
+    "themelios:chrysonyx_glacium_weave_bronze_wall",
+    "themelios:chrysonyx_glacium_weave_grout_block",
+    "themelios:chrysonyx_glacium_weave_grout_cylinder_large",
+    "themelios:chrysonyx_glacium_weave_grout_cylinder_small",
+    "themelios:chrysonyx_glacium_weave_grout_layer",
+    "themelios:chrysonyx_glacium_weave_grout_layer_vertical",
+    "themelios:chrysonyx_glacium_weave_grout_post",
+    "themelios:chrysonyx_glacium_weave_grout_slab",
+    "themelios:chrysonyx_glacium_weave_grout_slice_horizontal",
+    "themelios:chrysonyx_glacium_weave_grout_slice_vertical",
+    "themelios:chrysonyx_glacium_weave_grout_stairs",
+    "themelios:chrysonyx_glacium_weave_grout_wall"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "themelios",
+  "version": "${version}",
+  "name": "ERYDON Themelios",
+  "description": "Basic building shapes for ERYDON.",
+  "icon": "assets/themelios/icon.png",
+  "authors": [
+    "Oliver"
+  ],
+  "contact": {
+    "homepage": "https://erydon.co.uk",
+    "sources": "https://github.com/erydon-mod/themelios",
+    "issues": "https://github.com/erydon-mod/themelios/issues"
+  },
+  "license": "LicenseRef-Oliver-Restricted-1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.oliver.erydonthemelios.ErydonThemelios"
+    ],
+    "client": [
+      "com.oliver.erydonthemelios.ErydonThemeliosClient"
+    ],
+    "emi": [
+      "com.oliver.erydonthemelios.compat.emi.ThemeliosEmiPlugin"
+    ]
+  },
+  "mixins": [
+    "themelios.mixins.json",
+    {
+      "config": "themelios-texture-alias.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "custom": {
+    "erydon:texture_alias_resolver": 1,
+    "erydon:family_compatibility_generation": 2
+  },
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "fabric-api": ">=0.92.11+1.20.1",
+    "minecraft": "1.20.1",
+    "java": ">=17"
+  },
+  "suggests": {
+    "roughlyenoughitems": "*",
+    "jei": "*",
+    "emi": "*",
+    "axiom": "*"
+  }
+}

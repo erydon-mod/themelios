@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_small",
+  "textures": {
+    "texture": "erydon:block/aganite_hewn_block",
+    "particle": "erydon:block/aganite_hewn_block"
+  }
+}

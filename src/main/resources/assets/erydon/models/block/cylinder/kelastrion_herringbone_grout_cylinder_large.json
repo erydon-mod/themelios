@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_large",
+  "textures": {
+    "texture": "erydon:block/kelastrion_herringbone_grout_block",
+    "particle": "erydon:block/kelastrion_herringbone_grout_block"
+  }
+}

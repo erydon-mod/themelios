@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/aterzon_rock_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/aterzon_rock_cylinder_small"
+    }
+  }
+}

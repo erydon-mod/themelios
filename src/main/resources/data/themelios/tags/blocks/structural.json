@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#themelios:block",
+    "#themelios:cylinder",
+    "#themelios:layer",
+    "#themelios:post",
+    "#themelios:slab",
+    "#themelios:slice",
+    "#themelios:stairs",
+    "#themelios:wall"
+  ]
+}

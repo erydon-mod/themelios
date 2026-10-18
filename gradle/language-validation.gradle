@@ -1,0 +1,24 @@
+// Source-only translation gates; no runtime or packaging work.
+tasks.register('verifyTranslations', Exec) {
+    group = 'verification'
+    description = 'Checks every canonical block name, language key and live search synonym group.'
+    inputs.files(file('tools/sync_languages.py'), file('config/language-terms.json'))
+    inputs.dir(file('src/main/resources/assets/themelios/lang'))
+    inputs.dir(file('src/main/resources/assets/themelios/blockstates'))
+    inputs.files(fileTree('src/main/resources/data') {
+        include '*/tags/item/**/*.json', '*/tags/items/**/*.json'
+    })
+    inputs.file(file('src/main/resources/data/themelios/id_migration.tsv'))
+    inputs.file(file('src/main/java/com/oliver/erydonthemelios/client/migration/IdAliasSearchVocabulary.java'))
+    commandLine 'python', '-B', 'tools/sync_languages.py', '--check'
+}
+
+tasks.register('testTranslations', Exec) {
+    group = 'verification'
+    description = 'Tests translation generation, preservation and missing/corrupt text rejection.'
+    commandLine 'python', '-B', '-m', 'unittest', 'tools/test_languages.py'
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('verifyTranslations'), tasks.named('testTranslations')
+}

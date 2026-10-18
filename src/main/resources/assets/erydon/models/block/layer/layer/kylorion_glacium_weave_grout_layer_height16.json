@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/block/kylorion_glacium_weave_grout_block",
+  "textures": {
+    "texture": "erydon:block/kylorion_glacium_weave_grout_block",
+    "particle": "erydon:block/kylorion_glacium_weave_grout_block"
+  }
+}

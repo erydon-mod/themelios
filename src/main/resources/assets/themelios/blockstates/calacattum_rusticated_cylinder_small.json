@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/calacattum_rusticated_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/calacattum_rusticated_cylinder_small"
+    }
+  }
+}

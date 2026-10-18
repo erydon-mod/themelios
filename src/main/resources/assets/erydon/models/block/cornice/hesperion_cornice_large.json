@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cornice/cornice_large",
+  "textures": {
+    "texture": "erydon:block/hesperion_block",
+    "particle": "erydon:block/hesperion_block"
+  }
+}

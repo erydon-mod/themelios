@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/porphyros_rock_cylinder_large"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/porphyros_rock_cylinder_large"
+    }
+  }
+}

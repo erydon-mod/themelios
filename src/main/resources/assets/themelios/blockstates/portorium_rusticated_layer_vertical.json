@@ -1,0 +1,309 @@
+{
+  "variants": {
+    "facing=north,layers=1,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "uvlock": true
+    },
+    "facing=north,layers=1,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "uvlock": true
+    },
+    "facing=north,layers=2,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "uvlock": true
+    },
+    "facing=north,layers=2,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "uvlock": true
+    },
+    "facing=north,layers=3,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "uvlock": true
+    },
+    "facing=north,layers=3,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "uvlock": true
+    },
+    "facing=north,layers=4,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "uvlock": true
+    },
+    "facing=north,layers=4,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "uvlock": true
+    },
+    "facing=north,layers=5,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "uvlock": true
+    },
+    "facing=north,layers=5,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "uvlock": true
+    },
+    "facing=north,layers=6,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "uvlock": true
+    },
+    "facing=north,layers=6,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "uvlock": true
+    },
+    "facing=north,layers=7,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "uvlock": true
+    },
+    "facing=north,layers=7,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "uvlock": true
+    },
+    "facing=north,layers=8,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "uvlock": true
+    },
+    "facing=north,layers=8,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "uvlock": true
+    },
+    "facing=east,layers=1,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=1,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=2,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=2,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=3,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=3,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=4,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=4,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=5,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=5,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=6,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=6,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=7,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=7,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=8,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=east,layers=8,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=south,layers=1,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=1,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=2,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=2,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=3,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=3,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=4,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=4,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=5,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=5,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=6,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=6,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=7,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=7,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=8,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=south,layers=8,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=west,layers=1,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=1,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth2",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=2,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=2,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth4",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=3,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=3,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth6",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=4,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=4,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth8",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=5,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=5,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth10",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=6,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=6,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth12",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=7,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=7,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth14",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=8,waterlogged=false": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=west,layers=8,waterlogged=true": {
+      "model": "erydon:block/layer/layer/portorium_rusticated_layer_vertical_depth16",
+      "y": 270,
+      "uvlock": true
+    }
+  }
+}
+

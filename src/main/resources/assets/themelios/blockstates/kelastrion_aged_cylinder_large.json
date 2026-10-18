@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/kelastrion_cylinder_large_aged"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/kelastrion_cylinder_large_aged"
+    }
+  }
+}

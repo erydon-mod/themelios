@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_small",
+  "textures": {
+    "texture": "erydon:block/etruscus_ashlar_block",
+    "particle": "erydon:block/etruscus_ashlar_block"
+  }
+}

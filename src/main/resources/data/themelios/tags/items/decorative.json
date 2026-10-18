@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#themelios:cornice",
+    "#themelios:guilloche",
+    "#themelios:herringbone",
+    "#themelios:quatrefoil",
+    "#themelios:rosette",
+    "#themelios:trim",
+    "#themelios:weave"
+  ]
+}

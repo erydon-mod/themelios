@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cornice/cornice_large",
+  "textures": {
+    "texture": "erydon:block/borealis_block",
+    "particle": "erydon:block/borealis_block"
+  }
+}

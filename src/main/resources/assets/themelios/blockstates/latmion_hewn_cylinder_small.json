@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/latmion_hewn_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/latmion_hewn_cylinder_small"
+    }
+  }
+}

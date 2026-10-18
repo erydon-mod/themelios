@@ -1,0 +1,56 @@
+// Static production loot plus an isolated, development-only real-server regression mod.
+def lootJavaVersion = minecraft_version.toString() == '1.20.1' ? 17 : 21
+
+sourceSets {
+    gameTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+loom.createRemapConfigurations(sourceSets.gameTest)
+dependencies {
+    // Recent aggregate Fabric API releases exclude GameTest; keep it test-only.
+    modGameTestImplementation fabricApi.module('fabric-gametest-api-v1', fabric_api_version.toString())
+}
+loom {
+    mods {
+        themelios { sourceSet sourceSets.main }
+        themelios_gametest { sourceSet sourceSets.gameTest }
+    }
+    runs {
+        gameTest {
+            server()
+            name 'Themelios loot regression tests'
+            source sourceSets.gameTest
+            ideConfigGenerated false
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.file('reports/gametest/loot.xml').get().asFile.absolutePath}"
+            runDir 'build/gametest'
+        }
+    }
+}
+tasks.register('verifyLootTables', Exec) {
+    group = 'verification'
+    description = 'Checks all canonical, version-correct block loot resources without packaging.'
+    commandLine 'python', '-B', 'tools/generate_loot_tables.py', '--check'
+}
+tasks.register('testLootTables', Exec) {
+    group = 'verification'
+    description = 'Checks survival loot quantities, canonical aliases and resource-directory contracts.'
+    commandLine 'python', '-B', '-m', 'unittest', 'tools/test_loot_tables.py', '-v'
+}
+tasks.named('check') {
+    dependsOn tasks.named('verifyLootTables'), tasks.named('testLootTables'), tasks.named('gameTestClasses')
+}
+tasks.named('runGameTest') {
+    dependsOn tasks.named('verifyLootTables')
+    def launcher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(lootJavaVersion) }
+    javaLauncher = launcher
+    // Loom's development task can retain its own executable; pin both to the same toolchain.
+    executable = launcher.get().executablePath.asFile.absolutePath
+    maxHeapSize = '3G'
+    doFirst {
+        layout.buildDirectory.dir('reports/gametest').get().asFile.mkdirs()
+        logger.lifecycle("Themelios loot GameTest Java ${lootJavaVersion}: ${executable}")
+    }
+}

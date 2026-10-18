@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:calacattum_portorium_weave_bronze_block",
+    "themelios:calacattum_portorium_weave_bronze_cylinder_large",
+    "themelios:calacattum_portorium_weave_bronze_cylinder_small",
+    "themelios:calacattum_portorium_weave_bronze_layer",
+    "themelios:calacattum_portorium_weave_bronze_layer_vertical",
+    "themelios:calacattum_portorium_weave_bronze_post",
+    "themelios:calacattum_portorium_weave_bronze_slab",
+    "themelios:calacattum_portorium_weave_bronze_slice_horizontal",
+    "themelios:calacattum_portorium_weave_bronze_slice_vertical",
+    "themelios:calacattum_portorium_weave_bronze_stairs",
+    "themelios:calacattum_portorium_weave_bronze_wall",
+    "themelios:calacattum_portorium_weave_grout_block",
+    "themelios:calacattum_portorium_weave_grout_cylinder_large",
+    "themelios:calacattum_portorium_weave_grout_cylinder_small",
+    "themelios:calacattum_portorium_weave_grout_layer",
+    "themelios:calacattum_portorium_weave_grout_layer_vertical",
+    "themelios:calacattum_portorium_weave_grout_post",
+    "themelios:calacattum_portorium_weave_grout_slab",
+    "themelios:calacattum_portorium_weave_grout_slice_horizontal",
+    "themelios:calacattum_portorium_weave_grout_slice_vertical",
+    "themelios:calacattum_portorium_weave_grout_stairs",
+    "themelios:calacattum_portorium_weave_grout_wall"
+  ]
+}

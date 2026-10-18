@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/block/striatus_nerium_weave_grout_block",
+  "textures": {
+    "texture": "erydon:block/striatus_nerium_weave_grout_block",
+    "particle": "erydon:block/striatus_nerium_weave_grout_block"
+  }
+}

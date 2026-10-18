@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_large",
+  "textures": {
+    "texture": "erydon:block/rosinium_block_aged",
+    "particle": "erydon:block/rosinium_block_aged"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "shape": "north|north_east|west_north"
+      },
+      "apply": {
+        "model": "erydon:block/cornice/calacattum_aged_cornice_small",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "shape": "east|north_east|east_south"
+      },
+      "apply": {
+        "model": "erydon:block/cornice/calacattum_aged_cornice_small",
+        "uvlock": true,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "shape": "south|east_south|south_west"
+      },
+      "apply": {
+        "model": "erydon:block/cornice/calacattum_aged_cornice_small",
+        "uvlock": true,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "shape": "west|south_west|west_north"
+      },
+      "apply": {
+        "model": "erydon:block/cornice/calacattum_aged_cornice_small",
+        "uvlock": true,
+        "y": 270
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:laurentium_calacattum_weave_bronze_block",
+    "themelios:laurentium_calacattum_weave_bronze_cylinder_large",
+    "themelios:laurentium_calacattum_weave_bronze_cylinder_small",
+    "themelios:laurentium_calacattum_weave_bronze_layer",
+    "themelios:laurentium_calacattum_weave_bronze_layer_vertical",
+    "themelios:laurentium_calacattum_weave_bronze_post",
+    "themelios:laurentium_calacattum_weave_bronze_slab",
+    "themelios:laurentium_calacattum_weave_bronze_slice_horizontal",
+    "themelios:laurentium_calacattum_weave_bronze_slice_vertical",
+    "themelios:laurentium_calacattum_weave_bronze_stairs",
+    "themelios:laurentium_calacattum_weave_bronze_wall",
+    "themelios:laurentium_calacattum_weave_grout_block",
+    "themelios:laurentium_calacattum_weave_grout_cylinder_large",
+    "themelios:laurentium_calacattum_weave_grout_cylinder_small",
+    "themelios:laurentium_calacattum_weave_grout_layer",
+    "themelios:laurentium_calacattum_weave_grout_layer_vertical",
+    "themelios:laurentium_calacattum_weave_grout_post",
+    "themelios:laurentium_calacattum_weave_grout_slab",
+    "themelios:laurentium_calacattum_weave_grout_slice_horizontal",
+    "themelios:laurentium_calacattum_weave_grout_slice_vertical",
+    "themelios:laurentium_calacattum_weave_grout_stairs",
+    "themelios:laurentium_calacattum_weave_grout_wall"
+  ]
+}

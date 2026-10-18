@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/mielonyx_imperium_weave_grout_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/mielonyx_imperium_weave_grout_cylinder_small"
+    }
+  }
+}

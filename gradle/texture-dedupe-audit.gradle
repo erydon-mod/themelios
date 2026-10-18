@@ -1,0 +1,386 @@
+def textureAuditPython = providers.gradleProperty('textureDedupePython')
+        .getOrElse('python')
+def textureAuditTool = file('tools/texture_dedupe.py')
+def expectedTextureAliases = 13_204
+def expectedTextureBlobs = 111
+def minimumTextureSavings = 4_500_000L
+
+def sha256Bytes = { byte[] bytes ->
+    java.util.HexFormat.of().formatHex(
+            java.security.MessageDigest.getInstance('SHA-256').digest(bytes)
+    )
+}
+
+def inspectTextureJar = { File jarFile ->
+    if (!jarFile.isFile()) {
+        throw new GradleException("Missing JAR for texture audit: ${jarFile}")
+    }
+
+    def zip = new java.util.zip.ZipFile(jarFile)
+    try {
+        def entries = []
+        def enumeration = zip.entries()
+        while (enumeration.hasMoreElements()) {
+            entries.add(enumeration.nextElement())
+        }
+        def names = entries.collect { it.name }
+        def duplicateNames = names.groupBy { it }
+                .findAll { key, values -> values.size() > 1 }
+                .keySet()
+                .sort()
+        if (!duplicateNames.isEmpty()) {
+            throw new GradleException(
+                    "Duplicate JAR entries found; first is ${duplicateNames.first()}"
+            )
+        }
+        def entryByName = entries.collectEntries { [(it.name): it] }
+        def readBytes = { String name ->
+            def entry = entryByName[name]
+            if (entry == null) {
+                throw new GradleException(
+                        "Required JAR entry is missing from ${jarFile.name}: ${name}"
+                )
+            }
+            zip.getInputStream(entry).withCloseable { it.readAllBytes() }
+        }
+        def hashEntries = { Closure<Boolean> matches ->
+            def result = new TreeMap<String, String>()
+            entries.findAll { matches(it.name) }.each { entry ->
+                result[entry.name] = zip.getInputStream(entry).withCloseable {
+                    sha256Bytes(it.readAllBytes())
+                }
+            }
+            result
+        }
+        def setHash = { Map<String, String> values ->
+            sha256Bytes(
+                    values.collect { key, value -> "${key}=${value}\n" }
+                            .join('')
+                            .getBytes('UTF-8')
+            )
+        }
+
+        def fabricBytes = readBytes('fabric.mod.json')
+        def fabric = new groovy.json.JsonSlurper()
+                .parseText(new String(fabricBytes, 'UTF-8'))
+        if (fabric.version != project.version.toString()) {
+            throw new GradleException(
+                    "${jarFile.name} embeds version ${fabric.version}, expected ${project.version}"
+            )
+        }
+        if (!(fabric.custom instanceof Map)
+                || fabric.custom['erydon:texture_alias_resolver'] != 1) {
+            throw new GradleException(
+                    "${jarFile.name} does not advertise texture alias resolver capability 1"
+            )
+        }
+        def expectedCompatibilityGeneration = project
+                .property('family_compatibility_generation').toString().toInteger()
+        if (fabric.custom['erydon:family_compatibility_generation']
+                != expectedCompatibilityGeneration) {
+            throw new GradleException(
+                    "${jarFile.name} does not advertise family compatibility generation "
+                            + expectedCompatibilityGeneration
+            )
+        }
+
+        def manifestBytes = readBytes('META-INF/MANIFEST.MF')
+        def classes = hashEntries { it.endsWith('.class') }
+        if (classes.isEmpty()) {
+            throw new GradleException("${jarFile.name} contains no compiled classes")
+        }
+        def packagePath = 'com/oliver/erydonthemelios'
+        def requiredClasses = [
+                "${packagePath}/client/texturealias/FamilyTextureAliasCoordinator.class",
+                "${packagePath}/client/texturealias/TextureAliasManifest.class",
+                "${packagePath}/client/texturealias/TextureAliasResourcePack.class",
+                "${packagePath}/mixin/client/texturealias/ResourcePackProfileMixin.class"
+        ]
+        if (minecraft_version == '1.20.1') {
+            requiredClasses.add(
+                    "${packagePath}/mixin/client/texturealias/ModResourcePackCreatorMixin.class"
+            )
+        } else if (classes.containsKey(
+                "${packagePath}/mixin/client/texturealias/ModResourcePackCreatorMixin.class"
+        )) {
+            throw new GradleException(
+                    "${jarFile.name} unexpectedly contains the 1.20-only mod-pack hook"
+            )
+        }
+        requiredClasses.each { className ->
+            if (!classes.containsKey(className)) {
+                throw new GradleException(
+                        "${jarFile.name} is missing resolver class ${className}"
+                )
+            }
+        }
+
+        def properties = hashEntries { it.endsWith('.properties') }
+        def aliasManifests = entries.findAll {
+            it.name ==~ /assets\/[^\/]+\/texture_aliases\/v1\.json/
+        }
+        int aliasCount = 0
+        def declaredTargets = new TreeSet<String>()
+        def manifestNamespaces = new TreeSet<String>()
+        aliasManifests.each { entry ->
+            def parsed = new groovy.json.JsonSlurper().parseText(
+                    zip.getInputStream(entry).withCloseable {
+                        new String(it.readAllBytes(), 'UTF-8')
+                    }
+            )
+            if (parsed.schema_version != 1
+                    || parsed.format != 'erydon-texture-aliases'
+                    || !(parsed.aliases instanceof List)
+                    || !(parsed.blobs instanceof List)) {
+                throw new GradleException(
+                        "Malformed texture alias manifest ${entry.name}"
+                )
+            }
+            manifestNamespaces.add(parsed.namespace as String)
+            def manifestTargets = new TreeSet<String>()
+            parsed.aliases.each { alias ->
+                String path = alias.path
+                String target = alias.target
+                String expectedTarget =
+                        "assets/${parsed.namespace}/texture_blobs/${alias.file_sha256}.png"
+                if (target != expectedTarget) {
+                    throw new GradleException(
+                            "Alias target/hash mismatch in ${entry.name}: ${path}"
+                    )
+                }
+                if (entryByName.containsKey("assets/${parsed.namespace}/${path}")) {
+                    throw new GradleException(
+                            "Aliased PNG was not removed from ${jarFile.name}: ${path}"
+                    )
+                }
+                byte[] targetBytes = readBytes(target)
+                if (sha256Bytes(targetBytes) != alias.file_sha256) {
+                    throw new GradleException(
+                            "Canonical blob hash mismatch in ${jarFile.name}: ${target}"
+                    )
+                }
+                manifestTargets.add(target)
+                declaredTargets.add(target)
+                aliasCount++
+            }
+            def blobTargets = parsed.blobs.collect {
+                it.target as String
+            } as Set
+            if (blobTargets != manifestTargets) {
+                throw new GradleException(
+                        "Manifest blob set differs from alias targets in ${entry.name}"
+                )
+            }
+        }
+        def physicalBlobNames = names.findAll {
+            it ==~ /assets\/[^\/]+\/texture_blobs\/[0-9a-f]{64}\.png/
+        } as Set
+        if (physicalBlobNames != declaredTargets) {
+            throw new GradleException(
+                    "Physical canonical blob set differs from manifest declarations"
+            )
+        }
+        int pngCount = names.count {
+            it.startsWith('assets/') && it.endsWith('.png')
+        }
+
+        [
+                file              : jarFile,
+                bytes             : jarFile.length(),
+                fabricSha256      : sha256Bytes(fabricBytes),
+                manifestSha256    : sha256Bytes(manifestBytes),
+                classes           : classes,
+                classSetSha256    : setHash(classes),
+                properties        : properties,
+                propertiesSha256  : setHash(properties),
+                aliasManifestCount: aliasManifests.size(),
+                manifestNamespaces: manifestNamespaces as List,
+                aliasCount        : aliasCount,
+                blobCount         : physicalBlobNames.size(),
+                physicalPngCount  : pngCount,
+                logicalPngCount   : pngCount - physicalBlobNames.size() + aliasCount
+        ]
+    } finally {
+        zip.close()
+    }
+}
+
+tasks.register('verifyTextureDedupeBuilds') {
+    group = 'verification'
+    description = 'Builds physical and deduplicated JARs and proves exact logical equivalence.'
+    inputs.files(
+            textureAuditTool,
+            file('tools/test_texture_dedupe.py'),
+            file('config/texture-dedupe-source.json')
+    )
+
+    doLast {
+        def jarName = "${project.base.archivesName.get()}-${project.version}.jar"
+        def builtJar = file("build/libs/${jarName}")
+        def temporaryRoot = java.nio.file.Files.createTempDirectory(
+                'themelios-texture-dedupe-'
+        ).toFile()
+        def temporaryBaseline = new File(temporaryRoot, "baseline-${jarName}")
+
+        try {
+            project.exec {
+                commandLine 'cmd', '/c', file('gradlew.bat').absolutePath,
+                        '-PtextureDedupe=false',
+                        'clean', 'remapJar',
+                        '--no-daemon', '--console=plain'
+            }.assertNormalExitValue()
+            if (!builtJar.isFile()) {
+                throw new GradleException(
+                        "Physical fallback JAR was not built: ${builtJar}"
+                )
+            }
+            java.nio.file.Files.copy(
+                    builtJar.toPath(),
+                    temporaryBaseline.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+            )
+
+            project.exec {
+                commandLine 'cmd', '/c', file('gradlew.bat').absolutePath,
+                        '-PtextureDedupe=true',
+                        'clean', 'build',
+                        '--no-daemon', '--console=plain'
+            }.assertNormalExitValue()
+            if (!builtJar.isFile()) {
+                throw new GradleException(
+                        "Deduplicated JAR was not built: ${builtJar}"
+                )
+            }
+
+            def comparisonRoot = file(
+                    'build/reports/texture-dedupe/comparison'
+            )
+            comparisonRoot.mkdirs()
+            def retainedBaseline =
+                    new File(comparisonRoot, "baseline-${jarName}")
+            def retainedDeduplicated =
+                    new File(comparisonRoot, "deduplicated-${jarName}")
+            java.nio.file.Files.copy(
+                    temporaryBaseline.toPath(),
+                    retainedBaseline.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+            )
+            java.nio.file.Files.copy(
+                    builtJar.toPath(),
+                    retainedDeduplicated.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING
+            )
+
+            def comparisonReport =
+                    new File(comparisonRoot, 'jar-alias-aware.json')
+            project.exec {
+                commandLine textureAuditPython,
+                        textureAuditTool,
+                        'compare',
+                        retainedBaseline,
+                        retainedDeduplicated,
+                        '--output', comparisonReport
+            }.assertNormalExitValue()
+            def metricsReport = new File(comparisonRoot, 'jar-metrics.json')
+            project.exec {
+                commandLine textureAuditPython,
+                        textureAuditTool,
+                        'metrics',
+                        retainedBaseline,
+                        retainedDeduplicated,
+                        '--output', metricsReport
+            }.assertNormalExitValue()
+
+            def comparison =
+                    new groovy.json.JsonSlurper().parse(comparisonReport)
+            if (comparison.equal != true) {
+                throw new GradleException(
+                        "Physical and deduplicated JARs are not alias-aware equal; "
+                                + "see ${comparisonReport}"
+                )
+            }
+
+            def baseline = inspectTextureJar(retainedBaseline)
+            def deduplicated = inspectTextureJar(retainedDeduplicated)
+            if (baseline.aliasCount != 0 || baseline.blobCount != 0) {
+                throw new GradleException(
+                        'Physical fallback unexpectedly contains texture aliases'
+                )
+            }
+            if (deduplicated.aliasCount != expectedTextureAliases
+                    || deduplicated.blobCount != expectedTextureBlobs
+                    || deduplicated.manifestNamespaces != ['erydon', 'minecraft']) {
+                throw new GradleException(
+                        "Unexpected deduplicated manifest contents: "
+                                + "namespaces=${deduplicated.manifestNamespaces}, "
+                                + "aliases=${deduplicated.aliasCount}, "
+                                + "blobs=${deduplicated.blobCount}"
+                )
+            }
+            if (baseline.classes != deduplicated.classes
+                    || baseline.fabricSha256 != deduplicated.fabricSha256
+                    || baseline.manifestSha256 != deduplicated.manifestSha256
+                    || baseline.properties != deduplicated.properties
+                    || baseline.logicalPngCount != deduplicated.logicalPngCount) {
+                throw new GradleException(
+                        'Class, metadata, manifest, .properties, or logical PNG audit differs'
+                )
+            }
+
+            long savedBytes = baseline.bytes - deduplicated.bytes
+            if (savedBytes <= 0) {
+                throw new GradleException(
+                        "Deduplicated JAR is not strictly smaller "
+                                + "(${baseline.bytes} -> ${deduplicated.bytes})"
+                )
+            }
+            if (savedBytes < minimumTextureSavings) {
+                throw new GradleException(
+                        "Deduplicated JAR saved only ${savedBytes} bytes; "
+                                + 'investigate the drop below 4.5 MB'
+                )
+            }
+
+            def auditReport = new File(comparisonRoot, 'jar-audit.json')
+            def audit = [
+                    schema_version       : 1,
+                    kind                 : 'themelios_texture_dedupe_jar_audit',
+                    status               : 'ok',
+                    minecraft_version    : minecraft_version,
+                    mod_version          : project.version.toString(),
+                    baseline_bytes       : baseline.bytes,
+                    deduplicated_bytes   : deduplicated.bytes,
+                    saved_bytes          : savedBytes,
+                    aliases              : deduplicated.aliasCount,
+                    canonical_blobs       : deduplicated.blobCount,
+                    logical_pngs          : deduplicated.logicalPngCount,
+                    class_count           : deduplicated.classes.size(),
+                    class_set_sha256      : deduplicated.classSetSha256,
+                    properties_count      : deduplicated.properties.size(),
+                    properties_set_sha256: deduplicated.propertiesSha256,
+                    fabric_mod_sha256     : deduplicated.fabricSha256,
+                    manifest_sha256       : deduplicated.manifestSha256,
+                    alias_aware_equal     : true
+            ]
+            auditReport.text = groovy.json.JsonOutput.prettyPrint(
+                    groovy.json.JsonOutput.toJson(audit)
+            ) + System.lineSeparator()
+            logger.lifecycle(
+                    "Texture deduplication verified: {} -> {} bytes (saved {})",
+                    baseline.bytes,
+                    deduplicated.bytes,
+                    savedBytes
+            )
+            logger.lifecycle("JAR audit: ${auditReport}")
+        } finally {
+            def temporaryPath = temporaryRoot.toPath()
+                    .toAbsolutePath().normalize()
+            def systemTemp = java.nio.file.Paths.get(
+                    System.getProperty('java.io.tmpdir')
+            ).toAbsolutePath().normalize()
+            if (temporaryPath.startsWith(systemTemp)) {
+                temporaryRoot.deleteDir()
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/gelastrum_herringbone_bronze_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/gelastrum_herringbone_bronze_cylinder_small"
+    }
+  }
+}

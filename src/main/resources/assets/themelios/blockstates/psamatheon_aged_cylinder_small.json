@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/psamatheon_cylinder_small_aged"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/psamatheon_cylinder_small_aged"
+    }
+  }
+}

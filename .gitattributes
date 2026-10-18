@@ -1,0 +1,21 @@
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.zip binary
+*.gz binary
+*.dat binary
+*.mca binary
+
+# Continuity/OptiFine property files are byte-sensitive.
+/src/main/resources/**/*.properties binary
+
+# Keep both wrapper entrypoints usable on their intended platforms.
+/gradlew text eol=lf
+/gradlew.bat text eol=crlf
+
+# Preserve the exact upstream bytes recorded in THIRD_PARTY_NOTICES.md.
+/licenses/gradle-wrapper/LICENSE text eol=lf

@@ -1,0 +1,465 @@
+{
+  "description": "Shared material-first naming vocabulary, aligned with ERYDON German and Spanish names. Existing authored translations take precedence.",
+  "materials": {
+    "aganite": "Aganite",
+    "aterzon": "Aterzon",
+    "borealis": "Borealis",
+    "brectite": "Brectite",
+    "calacattum": "Calacattum",
+    "chalstrom": "Chalstrom",
+    "chrysonyx": "Chrysonyx",
+    "etruscus": "Etruscus",
+    "gelastrum": "Gelastrum",
+    "glacium": "Glacium",
+    "hesperion": "Hesperion",
+    "imperium": "Imperium",
+    "kelastrion": "Kelastrion",
+    "kylorion": "Kylorion",
+    "latmion": "Latmion",
+    "laurentium": "Laurentium",
+    "mielonyx": "Mielonyx",
+    "nerium": "Nerium",
+    "noxoplis": "Noxoplis",
+    "porphyros": "Porphyros",
+    "portorium": "Portorium",
+    "psamatheon": "Psamatheon",
+    "rosinium": "Rosinium",
+    "sanguenite": "Sanguenite",
+    "selenephos": "Selenephos",
+    "solistra": "Solistra",
+    "striatus": "Striatus"
+  },
+  "languages": {
+    "de_de": {
+      "and": "und",
+      "inlay": "Intarsie",
+      "forms": {
+        "block": "Block",
+        "slab": "Stufe",
+        "stairs": "Treppe",
+        "wall": "Mauer",
+        "post": "Pfosten",
+        "slice_horizontal": "Horizontale Scheibe",
+        "slice_vertical": "Vertikale Scheibe",
+        "layer": "Schicht",
+        "layer_vertical": "Vertikale Schicht",
+        "cylinder_small": "Kleiner Zylinder",
+        "cylinder_large": "Großer Zylinder",
+        "cornice_small": "Kleines Gesims",
+        "cornice_large": "Großes Gesims"
+      },
+      "finishes": {
+        "aged": "Gealtert",
+        "ashlar": "Quader",
+        "hewn": "Behauen",
+        "rusticated": "Bossiert",
+        "rock": "Fels"
+      },
+      "patterns": {
+        "herringbone_bronze": "Bronze Fischgrät",
+        "herringbone_grout": "Fischgrät Fuge",
+        "weave_bronze": "Bronze Geflecht",
+        "weave_grout": "Geflecht Fuge"
+      },
+      "motifs": {
+        "guilloche": "Guilloche",
+        "quatrefoil": "Vierpass",
+        "rosette": "Rosette",
+        "trim": "Leiste"
+      },
+      "metals": {
+        "bronze": "Bronze",
+        "silver": "Silber"
+      }
+    },
+    "es_es": {
+      "and": "y",
+      "inlay": "Incrustación",
+      "forms": {
+        "block": "Bloque",
+        "slab": "Losa",
+        "stairs": "Escaleras",
+        "wall": "Muro",
+        "post": "Poste",
+        "slice_horizontal": "Corte Horizontal",
+        "slice_vertical": "Corte Vertical",
+        "layer": "Capa",
+        "layer_vertical": "Capa vertical",
+        "cylinder_small": "Cilindro pequeño",
+        "cylinder_large": "Cilindro grande",
+        "cornice_small": "Cornisa pequeña",
+        "cornice_large": "Cornisa grande"
+      },
+      "finishes": {
+        "aged": "Envejecido",
+        "ashlar": "Sillar",
+        "hewn": "Labrado",
+        "rusticated": "Rusticado",
+        "rock": "Roca"
+      },
+      "patterns": {
+        "herringbone_bronze": "Bronce Espiga",
+        "herringbone_grout": "Espiga Lechada",
+        "weave_bronze": "Bronce Tejido",
+        "weave_grout": "Tejido Lechada"
+      },
+      "motifs": {
+        "guilloche": "Guilloche",
+        "quatrefoil": "Cuatrifolio",
+        "rosette": "Rosetón",
+        "trim": "Moldura"
+      },
+      "metals": {
+        "bronze": "Bronce",
+        "silver": "Plata"
+      }
+    }
+  },
+  "tag_groups": {
+    "agate": {
+      "en_us": "Agate",
+      "de_de": "Achat",
+      "es_es": "Ágata"
+    },
+    "aged": {
+      "en_us": "Aged Stone",
+      "de_de": "Gealterter Stein",
+      "es_es": "Piedra envejecida"
+    },
+    "alabaster": {
+      "en_us": "Alabaster",
+      "de_de": "Alabaster",
+      "es_es": "Alabastro"
+    },
+    "ashlar": {
+      "en_us": "Ashlar",
+      "de_de": "Quader",
+      "es_es": "Sillería"
+    },
+    "block": {
+      "en_us": "Full Blocks",
+      "de_de": "Vollblöcke",
+      "es_es": "Bloques completos"
+    },
+    "blue_stone": {
+      "en_us": "Blue Stone",
+      "de_de": "Blauer Stein",
+      "es_es": "Piedra azul"
+    },
+    "bronze": {
+      "en_us": "Bronze",
+      "de_de": "Bronze",
+      "es_es": "Bronce"
+    },
+    "byzantine": {
+      "en_us": "Byzantine",
+      "de_de": "Byzantinisch",
+      "es_es": "Bizantino"
+    },
+    "column": {
+      "en_us": "Columns",
+      "de_de": "Säulen",
+      "es_es": "Columnas"
+    },
+    "cornice": {
+      "en_us": "Cornices",
+      "de_de": "Gesimse",
+      "es_es": "Cornisas"
+    },
+    "cornice_large": {
+      "en_us": "Large Cornices",
+      "de_de": "Große Gesimse",
+      "es_es": "Cornisas grandes"
+    },
+    "cornice_small": {
+      "en_us": "Small Cornices",
+      "de_de": "Kleine Gesimse",
+      "es_es": "Cornisas pequeñas"
+    },
+    "cylinder": {
+      "en_us": "Cylinders",
+      "de_de": "Zylinder",
+      "es_es": "Cilindros"
+    },
+    "cylinder_large": {
+      "en_us": "Large Cylinders",
+      "de_de": "Große Zylinder",
+      "es_es": "Cilindros grandes"
+    },
+    "cylinder_small": {
+      "en_us": "Small Cylinders",
+      "de_de": "Kleine Zylinder",
+      "es_es": "Cilindros pequeños"
+    },
+    "decorative": {
+      "en_us": "Decorative Blocks",
+      "de_de": "Dekorative Blöcke",
+      "es_es": "Bloques decorativos"
+    },
+    "gemstone": {
+      "en_us": "Gemstones",
+      "de_de": "Edelsteine",
+      "es_es": "Gemas"
+    },
+    "guilloche": {
+      "en_us": "Guilloche",
+      "de_de": "Guilloche",
+      "es_es": "Guilloche"
+    },
+    "herringbone": {
+      "en_us": "Herringbone",
+      "de_de": "Fischgrät",
+      "es_es": "Espiga"
+    },
+    "herringbone_bronze": {
+      "en_us": "Bronze Herringbone",
+      "de_de": "Fischgrät mit Bronze",
+      "es_es": "Espiga con bronce"
+    },
+    "herringbone_grout": {
+      "en_us": "Grouted Herringbone",
+      "de_de": "Verfugtes Fischgrät",
+      "es_es": "Espiga rejuntada"
+    },
+    "hewn": {
+      "en_us": "Hewn Stone",
+      "de_de": "Behauener Stein",
+      "es_es": "Piedra labrada"
+    },
+    "honed": {
+      "en_us": "Honed Stone",
+      "de_de": "Geschliffener Stein",
+      "es_es": "Piedra apomazada"
+    },
+    "horizontal": {
+      "en_us": "Horizontal Shapes",
+      "de_de": "Horizontale Formen",
+      "es_es": "Formas horizontales"
+    },
+    "horizontal_slice": {
+      "en_us": "Horizontal Slices",
+      "de_de": "Horizontale Scheiben",
+      "es_es": "Cortes horizontales"
+    },
+    "labradorite": {
+      "en_us": "Labradorite",
+      "de_de": "Labradorit",
+      "es_es": "Labradorita"
+    },
+    "large": {
+      "en_us": "Large Shapes",
+      "de_de": "Große Formen",
+      "es_es": "Formas grandes"
+    },
+    "layer": {
+      "en_us": "Layers",
+      "de_de": "Schichten",
+      "es_es": "Capas"
+    },
+    "layer_horizontal": {
+      "en_us": "Horizontal Layers",
+      "de_de": "Horizontale Schichten",
+      "es_es": "Capas horizontales"
+    },
+    "layer_vertical": {
+      "en_us": "Vertical Layers",
+      "de_de": "Vertikale Schichten",
+      "es_es": "Capas verticales"
+    },
+    "layers": {
+      "en_us": "Layers",
+      "de_de": "Schichten",
+      "es_es": "Capas"
+    },
+    "limestone": {
+      "en_us": "Limestone",
+      "de_de": "Kalkstein",
+      "es_es": "Caliza"
+    },
+    "marble": {
+      "en_us": "Marble",
+      "de_de": "Marmor",
+      "es_es": "Mármol"
+    },
+    "mirror": {
+      "en_us": "Mirror Finish Stone",
+      "de_de": "Stein mit Spiegelglanz",
+      "es_es": "Piedra con acabado espejo"
+    },
+    "molding": {
+      "en_us": "Mouldings",
+      "de_de": "Zierleisten",
+      "es_es": "Molduras"
+    },
+    "moulding": {
+      "en_us": "Mouldings",
+      "de_de": "Zierleisten",
+      "es_es": "Molduras"
+    },
+    "onyx": {
+      "en_us": "Onyx",
+      "de_de": "Onyx",
+      "es_es": "Ónice"
+    },
+    "opal": {
+      "en_us": "Opal",
+      "de_de": "Opal",
+      "es_es": "Ópalo"
+    },
+    "polished": {
+      "en_us": "Polished Stone",
+      "de_de": "Polierter Stein",
+      "es_es": "Piedra pulida"
+    },
+    "post": {
+      "en_us": "Posts",
+      "de_de": "Pfosten",
+      "es_es": "Postes"
+    },
+    "quartzite": {
+      "en_us": "Quartzite",
+      "de_de": "Quarzit",
+      "es_es": "Cuarcita"
+    },
+    "quatrefoil": {
+      "en_us": "Quatrefoil",
+      "de_de": "Vierpass",
+      "es_es": "Cuatrifolio"
+    },
+    "rock": {
+      "en_us": "Rock",
+      "de_de": "Fels",
+      "es_es": "Roca"
+    },
+    "rose": {
+      "en_us": "Rosette",
+      "de_de": "Rosette",
+      "es_es": "Rosetón"
+    },
+    "rosette": {
+      "en_us": "Rosette",
+      "de_de": "Rosette",
+      "es_es": "Rosetón"
+    },
+    "rusticated": {
+      "en_us": "Rusticated Stone",
+      "de_de": "Bossierter Stein",
+      "es_es": "Piedra rusticada"
+    },
+    "sandstone": {
+      "en_us": "Sandstone",
+      "de_de": "Sandstein",
+      "es_es": "Arenisca"
+    },
+    "silver": {
+      "en_us": "Silver",
+      "de_de": "Silber",
+      "es_es": "Plata"
+    },
+    "slab": {
+      "en_us": "Slabs",
+      "de_de": "Stufen",
+      "es_es": "Losas"
+    },
+    "slabs": {
+      "en_us": "Slabs",
+      "de_de": "Stufen",
+      "es_es": "Losas"
+    },
+    "slice": {
+      "en_us": "Slices",
+      "de_de": "Scheiben",
+      "es_es": "Cortes"
+    },
+    "slice_horizontal": {
+      "en_us": "Horizontal Slices",
+      "de_de": "Horizontale Scheiben",
+      "es_es": "Cortes horizontales"
+    },
+    "slice_vertical": {
+      "en_us": "Vertical Slices",
+      "de_de": "Vertikale Scheiben",
+      "es_es": "Cortes verticales"
+    },
+    "slices": {
+      "en_us": "Slices",
+      "de_de": "Scheiben",
+      "es_es": "Cortes"
+    },
+    "small": {
+      "en_us": "Small Shapes",
+      "de_de": "Kleine Formen",
+      "es_es": "Formas pequeñas"
+    },
+    "sodalite": {
+      "en_us": "Sodalite",
+      "de_de": "Sodalith",
+      "es_es": "Sodalita"
+    },
+    "stairs": {
+      "en_us": "Stairs",
+      "de_de": "Treppen",
+      "es_es": "Escaleras"
+    },
+    "stone": {
+      "en_us": "Stone",
+      "de_de": "Stein",
+      "es_es": "Piedra"
+    },
+    "structural": {
+      "en_us": "Structural Blocks",
+      "de_de": "Strukturblöcke",
+      "es_es": "Bloques estructurales"
+    },
+    "themelios_blocks": {
+      "en_us": "Themelios Blocks",
+      "de_de": "Themelios-Blöcke",
+      "es_es": "Bloques de Themelios"
+    },
+    "travertine": {
+      "en_us": "Travertine",
+      "de_de": "Travertin",
+      "es_es": "Travertino"
+    },
+    "trim": {
+      "en_us": "Trim",
+      "de_de": "Leisten",
+      "es_es": "Molduras"
+    },
+    "vertical": {
+      "en_us": "Vertical Shapes",
+      "de_de": "Vertikale Formen",
+      "es_es": "Formas verticales"
+    },
+    "vertical_slice": {
+      "en_us": "Vertical Slices",
+      "de_de": "Vertikale Scheiben",
+      "es_es": "Cortes verticales"
+    },
+    "wall": {
+      "en_us": "Walls",
+      "de_de": "Mauern",
+      "es_es": "Muros"
+    },
+    "walls": {
+      "en_us": "Walls",
+      "de_de": "Mauern",
+      "es_es": "Muros"
+    },
+    "weave": {
+      "en_us": "Weave",
+      "de_de": "Geflecht",
+      "es_es": "Tejido"
+    },
+    "weave_bronze": {
+      "en_us": "Bronze Weave",
+      "de_de": "Geflecht mit Bronze",
+      "es_es": "Tejido con bronce"
+    },
+    "weave_grout": {
+      "en_us": "Grouted Weave",
+      "de_de": "Verfugtes Geflecht",
+      "es_es": "Tejido rejuntado"
+    }
+  }
+}

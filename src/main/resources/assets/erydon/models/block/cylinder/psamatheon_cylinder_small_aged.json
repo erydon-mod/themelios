@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_small",
+  "textures": {
+    "texture": "erydon:block/psamatheon_block_aged",
+    "particle": "erydon:block/psamatheon_block_aged"
+  }
+}

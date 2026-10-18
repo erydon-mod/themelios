@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:kylorion_glacium_weave_bronze_block",
+    "themelios:kylorion_glacium_weave_bronze_cylinder_large",
+    "themelios:kylorion_glacium_weave_bronze_cylinder_small",
+    "themelios:kylorion_glacium_weave_bronze_layer",
+    "themelios:kylorion_glacium_weave_bronze_layer_vertical",
+    "themelios:kylorion_glacium_weave_bronze_post",
+    "themelios:kylorion_glacium_weave_bronze_slab",
+    "themelios:kylorion_glacium_weave_bronze_slice_horizontal",
+    "themelios:kylorion_glacium_weave_bronze_slice_vertical",
+    "themelios:kylorion_glacium_weave_bronze_stairs",
+    "themelios:kylorion_glacium_weave_bronze_wall",
+    "themelios:kylorion_glacium_weave_grout_block",
+    "themelios:kylorion_glacium_weave_grout_cylinder_large",
+    "themelios:kylorion_glacium_weave_grout_cylinder_small",
+    "themelios:kylorion_glacium_weave_grout_layer",
+    "themelios:kylorion_glacium_weave_grout_layer_vertical",
+    "themelios:kylorion_glacium_weave_grout_post",
+    "themelios:kylorion_glacium_weave_grout_slab",
+    "themelios:kylorion_glacium_weave_grout_slice_horizontal",
+    "themelios:kylorion_glacium_weave_grout_slice_vertical",
+    "themelios:kylorion_glacium_weave_grout_stairs",
+    "themelios:kylorion_glacium_weave_grout_wall"
+  ]
+}

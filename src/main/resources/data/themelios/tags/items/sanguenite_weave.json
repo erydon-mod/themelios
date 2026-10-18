@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:rosinium_sanguenite_weave_bronze_block",
+    "themelios:rosinium_sanguenite_weave_bronze_cylinder_large",
+    "themelios:rosinium_sanguenite_weave_bronze_cylinder_small",
+    "themelios:rosinium_sanguenite_weave_bronze_layer",
+    "themelios:rosinium_sanguenite_weave_bronze_layer_vertical",
+    "themelios:rosinium_sanguenite_weave_bronze_post",
+    "themelios:rosinium_sanguenite_weave_bronze_slab",
+    "themelios:rosinium_sanguenite_weave_bronze_slice_horizontal",
+    "themelios:rosinium_sanguenite_weave_bronze_slice_vertical",
+    "themelios:rosinium_sanguenite_weave_bronze_stairs",
+    "themelios:rosinium_sanguenite_weave_bronze_wall",
+    "themelios:rosinium_sanguenite_weave_grout_block",
+    "themelios:rosinium_sanguenite_weave_grout_cylinder_large",
+    "themelios:rosinium_sanguenite_weave_grout_cylinder_small",
+    "themelios:rosinium_sanguenite_weave_grout_layer",
+    "themelios:rosinium_sanguenite_weave_grout_layer_vertical",
+    "themelios:rosinium_sanguenite_weave_grout_post",
+    "themelios:rosinium_sanguenite_weave_grout_slab",
+    "themelios:rosinium_sanguenite_weave_grout_slice_horizontal",
+    "themelios:rosinium_sanguenite_weave_grout_slice_vertical",
+    "themelios:rosinium_sanguenite_weave_grout_stairs",
+    "themelios:rosinium_sanguenite_weave_grout_wall"
+  ]
+}

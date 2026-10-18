@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "package": "com.oliver.erydonthemelios.mixin",
+  "plugin": "com.oliver.erydonthemelios.mixin.ThemeliosMixinPlugin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "client.compat.axiom.BlockListEntryMixin",
+    "client.compat.rei.ReiIdentifierArgumentTypeMixin",
+    "client.compat.rei.ReiTextArgumentTypeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

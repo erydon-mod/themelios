@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_small",
+  "textures": {
+    "texture": "erydon:block/striatus_block_aged",
+    "particle": "erydon:block/striatus_block_aged"
+  }
+}

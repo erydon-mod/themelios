@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/kylorion_cylinder_large"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/kylorion_cylinder_large"
+    }
+  }
+}

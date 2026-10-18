@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_small",
+  "textures": {
+    "texture": "erydon:block/chrysonyx_rock_block",
+    "particle": "erydon:block/chrysonyx_rock_block"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "themelios_gametest",
+  "version": "1.0.0",
+  "name": "Themelios loot regression tests",
+  "environment": "server",
+  "entrypoints": {
+    "fabric-gametest": [
+      "com.oliver.erydonthemelios.gametest.BlockLootGameTests"
+    ]
+  },
+  "depends": {
+    "themelios": "*",
+    "fabric-gametest-api-v1": "*"
+  }
+}

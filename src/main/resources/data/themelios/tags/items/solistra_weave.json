@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:solistra_etruscus_weave_bronze_block",
+    "themelios:solistra_etruscus_weave_bronze_cylinder_large",
+    "themelios:solistra_etruscus_weave_bronze_cylinder_small",
+    "themelios:solistra_etruscus_weave_bronze_layer",
+    "themelios:solistra_etruscus_weave_bronze_layer_vertical",
+    "themelios:solistra_etruscus_weave_bronze_post",
+    "themelios:solistra_etruscus_weave_bronze_slab",
+    "themelios:solistra_etruscus_weave_bronze_slice_horizontal",
+    "themelios:solistra_etruscus_weave_bronze_slice_vertical",
+    "themelios:solistra_etruscus_weave_bronze_stairs",
+    "themelios:solistra_etruscus_weave_bronze_wall",
+    "themelios:solistra_etruscus_weave_grout_block",
+    "themelios:solistra_etruscus_weave_grout_cylinder_large",
+    "themelios:solistra_etruscus_weave_grout_cylinder_small",
+    "themelios:solistra_etruscus_weave_grout_layer",
+    "themelios:solistra_etruscus_weave_grout_layer_vertical",
+    "themelios:solistra_etruscus_weave_grout_post",
+    "themelios:solistra_etruscus_weave_grout_slab",
+    "themelios:solistra_etruscus_weave_grout_slice_horizontal",
+    "themelios:solistra_etruscus_weave_grout_slice_vertical",
+    "themelios:solistra_etruscus_weave_grout_stairs",
+    "themelios:solistra_etruscus_weave_grout_wall"
+  ]
+}

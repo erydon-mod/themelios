@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "themelios:mielonyx_imperium_weave_bronze_block",
+    "themelios:mielonyx_imperium_weave_bronze_cylinder_large",
+    "themelios:mielonyx_imperium_weave_bronze_cylinder_small",
+    "themelios:mielonyx_imperium_weave_bronze_layer",
+    "themelios:mielonyx_imperium_weave_bronze_layer_vertical",
+    "themelios:mielonyx_imperium_weave_bronze_post",
+    "themelios:mielonyx_imperium_weave_bronze_slab",
+    "themelios:mielonyx_imperium_weave_bronze_slice_horizontal",
+    "themelios:mielonyx_imperium_weave_bronze_slice_vertical",
+    "themelios:mielonyx_imperium_weave_bronze_stairs",
+    "themelios:mielonyx_imperium_weave_bronze_wall",
+    "themelios:mielonyx_imperium_weave_grout_block",
+    "themelios:mielonyx_imperium_weave_grout_cylinder_large",
+    "themelios:mielonyx_imperium_weave_grout_cylinder_small",
+    "themelios:mielonyx_imperium_weave_grout_layer",
+    "themelios:mielonyx_imperium_weave_grout_layer_vertical",
+    "themelios:mielonyx_imperium_weave_grout_post",
+    "themelios:mielonyx_imperium_weave_grout_slab",
+    "themelios:mielonyx_imperium_weave_grout_slice_horizontal",
+    "themelios:mielonyx_imperium_weave_grout_slice_vertical",
+    "themelios:mielonyx_imperium_weave_grout_stairs",
+    "themelios:mielonyx_imperium_weave_grout_wall"
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "themelios:kelastrion_rusticated_slice_horizontal",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "2"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 3,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "3"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 4,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "4"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 5,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "5"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 6,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "6"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 7,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "7"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 8,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "themelios:kelastrion_rusticated_slice_horizontal",
+                  "properties": {
+                    "layers": "8"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

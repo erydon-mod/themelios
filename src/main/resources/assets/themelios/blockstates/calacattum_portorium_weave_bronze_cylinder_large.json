@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/calacattum_portorium_weave_bronze_cylinder_large"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/calacattum_portorium_weave_bronze_cylinder_large"
+    }
+  }
+}

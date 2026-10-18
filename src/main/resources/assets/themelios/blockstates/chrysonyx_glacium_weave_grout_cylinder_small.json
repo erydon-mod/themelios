@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/chrysonyx_glacium_weave_grout_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/chrysonyx_glacium_weave_grout_cylinder_small"
+    }
+  }
+}

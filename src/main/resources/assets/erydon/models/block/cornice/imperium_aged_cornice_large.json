@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cornice/cornice_large",
+  "textures": {
+    "texture": "erydon:block/imperium_block_aged",
+    "particle": "erydon:block/imperium_block_aged"
+  }
+}

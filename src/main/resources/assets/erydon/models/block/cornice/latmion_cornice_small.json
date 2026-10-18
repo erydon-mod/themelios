@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cornice/cornice_small",
+  "textures": {
+    "texture": "erydon:block/latmion_block",
+    "particle": "erydon:block/latmion_block"
+  }
+}

@@ -1,0 +1,297 @@
+plugins {
+    id 'fabric-loom' version '1.6.12'
+    id 'maven-publish'
+}
+
+tasks.register('verifyCatalogueTags', Exec) {
+    group = 'verification'
+    description = 'Checks complete catalogue tags, item-browser parity and version-correct tag paths.'
+    commandLine 'python', '-B', 'tools/sync_catalogue_tags.py', '--check'
+}
+
+tasks.register('testCatalogueTags', Exec) {
+    group = 'verification'
+    description = 'Checks catalogue classification, shared materials and tag safety.'
+    commandLine 'python', '-B', '-m', 'unittest', 'tools/test_catalogue_tags.py'
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('verifyCatalogueTags'), tasks.named('testCatalogueTags')
+}
+
+group = maven_group
+version = mod_version
+def familyCompatibilityGeneration = providers
+        .gradleProperty('family_compatibility_generation')
+        .map { it.toInteger() }
+        .get()
+if (familyCompatibilityGeneration < 1) {
+    throw new GradleException('family_compatibility_generation must be positive')
+}
+base { archivesName = "${archives_base_name}-compat${familyCompatibilityGeneration}" }
+
+def textureDedupeEnabled = providers.gradleProperty('textureDedupe')
+        .map { it.toBoolean() }
+        .getOrElse(true)
+def textureDedupePython = providers.gradleProperty('textureDedupePython')
+        .getOrElse('python')
+def textureDedupeTool = file('tools/texture_dedupe.py')
+def textureDedupeTests = file('tools/test_texture_dedupe.py')
+def textureDedupeConfig = file('config/texture-dedupe-source.json')
+def textureDedupeSourceId = 'themelios-native-mc1.20.1'
+def textureDedupeReportDir = layout.buildDirectory.dir('reports/texture-dedupe')
+def textureDedupeInventoryJson = textureDedupeReportDir.map {
+    it.file('inventory.json')
+}
+def textureDedupeInventoryCsv = textureDedupeReportDir.map {
+    it.file('inventory.csv')
+}
+def textureDedupePlan = textureDedupeReportDir.map {
+    it.file('native-plan.json')
+}
+def idMigrationTool = file('tools/id_migration.py')
+def idMigrationManifest = file('src/main/resources/data/themelios/id_migration.tsv')
+def idMigrationReport = layout.buildDirectory.file('reports/id-migration/source-audit.json')
+
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.shedaniel.me/' }
+    maven { url = 'https://maven.blamejared.com' }
+    maven { url = 'https://maven.terraformersmc.com/releases/' }
+    maven { url = 'https://api.modrinth.com/maven' }
+    mavenCentral()
+}
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency { dependency ->
+        if (dependency.requested.group == 'org.lwjgl') {
+            dependency.useVersion '3.3.1'
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.785"
+    modCompileOnly("mezz.jei:jei-1.20.1-fabric:15.16.2.73") {
+        transitive = false
+    }
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+
+    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.13-fabric"
+    modRuntimeOnly "maven.modrinth:indium:1.0.36+mc1.20.1"
+    modRuntimeOnly "maven.modrinth:iris:1.7.6+1.20.1"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
+
+    runtimeOnly "org.anarres:jcpp:1.4.14"
+    runtimeOnly "org.antlr:antlr4-runtime:4.13.1"
+    runtimeOnly "io.github.douira:glsl-transformer:2.0.1"
+}
+
+loom {
+    runs {
+        client {
+            programArgs '--gameDir', file('run-dev').absolutePath
+            vmArgs "-Xms1G", "-Xmx4G"
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+    options.encoding = 'UTF-8'
+}
+
+tasks.register('textureDedupeInventory', Exec) {
+    group = 'texture deduplication'
+    description = 'Inventories canonical native PNG resources without modifying the source tree.'
+    onlyIf { textureDedupeEnabled }
+    inputs.files(textureDedupeTool, textureDedupeConfig)
+    inputs.files(fileTree('src/main/resources') {
+        include '**/*.json'
+        include '**/*.png'
+        include '**/*.png.mcmeta'
+        include '**/*.properties'
+        include '**/*.mtl'
+        include '**/*.obj'
+        include '**/*.txt'
+    })
+    outputs.files(textureDedupeInventoryJson, textureDedupeInventoryCsv)
+    doFirst {
+        textureDedupeReportDir.get().asFile.mkdirs()
+        commandLine textureDedupePython,
+                textureDedupeTool,
+                'inventory',
+                '--config', textureDedupeConfig,
+                '--json-out', textureDedupeInventoryJson.get().asFile,
+                '--csv-out', textureDedupeInventoryCsv.get().asFile
+    }
+}
+
+tasks.register('textureDedupePlan', Exec) {
+    group = 'texture deduplication'
+    description = 'Generates the exact-byte, source-scoped native texture alias plan.'
+    onlyIf { textureDedupeEnabled }
+    dependsOn tasks.named('textureDedupeInventory')
+    inputs.files(textureDedupeTool, textureDedupeConfig)
+    inputs.file(textureDedupeInventoryJson)
+    outputs.file(textureDedupePlan)
+    doFirst {
+        textureDedupeReportDir.get().asFile.mkdirs()
+        commandLine textureDedupePython,
+                textureDedupeTool,
+                'plan',
+                '--config', textureDedupeConfig,
+                '--inventory', textureDedupeInventoryJson.get().asFile,
+                '--source', textureDedupeSourceId,
+                '--output', textureDedupePlan.get().asFile
+    }
+}
+
+tasks.register('testTextureDedupeTool', Exec) {
+    group = 'verification'
+    description = 'Runs deterministic tests for the vendored texture deduplication tool.'
+    inputs.files(textureDedupeTool, textureDedupeTests)
+    commandLine textureDedupePython,
+            '-m', 'unittest', 'tools/test_texture_dedupe.py', '-v'
+}
+
+tasks.register('auditThemeliosIdMigration', Exec) {
+    group = 'verification'
+    description = 'Checks the approved Themelios ID map, canonical resources, translations, CTM stability, and held cylinders.'
+    inputs.files(idMigrationTool, idMigrationManifest)
+    inputs.files(fileTree('src/main/resources/assets/themelios/blockstates') { include '*.json' })
+    inputs.files(fileTree('src/main/resources/assets/themelios/models/item') { include '*.json' })
+    inputs.files(fileTree('src/main/resources/assets/themelios/lang') { include '*.json' })
+    inputs.files(fileTree('src/main/resources/data') { include '**/*.json' })
+    inputs.files(fileTree('src/main/resources') { include '**/*.properties' })
+    outputs.file(idMigrationReport)
+    doFirst {
+        idMigrationReport.get().asFile.parentFile.mkdirs()
+        commandLine textureDedupePython,
+                idMigrationTool,
+                'audit',
+                '--manifest', idMigrationManifest,
+                '--repo', projectDir,
+                '--report', idMigrationReport.get().asFile
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+tasks.withType(ProcessResources).configureEach {
+    filteringCharset = 'UTF-8'
+    inputs.property('version', project.version)
+    inputs.property('familyCompatibilityGeneration', familyCompatibilityGeneration)
+    filesMatching('fabric.mod.json') {
+        expand('version': project.version)
+    }
+}
+
+tasks.named('processResources') {
+    inputs.property('textureDedupeEnabled', textureDedupeEnabled)
+    if (textureDedupeEnabled) {
+        dependsOn tasks.named('textureDedupePlan')
+        inputs.files(textureDedupeTool, textureDedupeConfig, textureDedupePlan)
+    }
+    doFirst {
+        project.delete(fileTree(destinationDir) {
+            include 'assets/*/texture_aliases/**'
+            include 'assets/*/texture_blobs/**'
+        })
+    }
+    doLast {
+        if (!textureDedupeEnabled) {
+            return
+        }
+        def reportDir = textureDedupeReportDir.get().asFile
+        reportDir.mkdirs()
+        def applyReport = new File(reportDir, 'apply.json')
+        project.exec {
+            commandLine textureDedupePython,
+                    textureDedupeTool,
+                    'apply',
+                    '--config', textureDedupePlan.get().asFile,
+                    '--stage-root', destinationDir,
+                    '--report-out', applyReport
+        }.assertNormalExitValue()
+        project.exec {
+            commandLine textureDedupePython,
+                    textureDedupeTool,
+                    'validate',
+                    '--config', textureDedupePlan.get().asFile,
+                    '--stage-root', destinationDir,
+                    '--report-out', new File(reportDir, 'validate.json')
+        }.assertNormalExitValue()
+        def applied = new groovy.json.JsonSlurper().parse(applyReport)
+        if (applied.aliases_applied != 13_204 || applied.group_count != 111) {
+            throw new GradleException(
+                    "Native texture alias plan drifted: expected 13,204 aliases/"
+                            + "111 blobs, found ${applied.aliases_applied}/"
+                            + "${applied.group_count}"
+            )
+        }
+    }
+}
+
+tasks.register('validateTextureAliases', Exec) {
+    group = 'verification'
+    description = 'Revalidates generated native alias manifests and canonical blobs.'
+    dependsOn tasks.named('processResources')
+    onlyIf { textureDedupeEnabled }
+    inputs.files(textureDedupeTool, textureDedupePlan)
+    inputs.dir(layout.buildDirectory.dir('resources/main'))
+    outputs.file(textureDedupeReportDir.map { it.file('validate-explicit.json') })
+    doFirst {
+        commandLine textureDedupePython,
+                textureDedupeTool,
+                'validate',
+                '--config', textureDedupePlan.get().asFile,
+                '--stage-root', layout.buildDirectory.dir('resources/main').get().asFile,
+                '--report-out', textureDedupeReportDir.get()
+                        .file('validate-explicit.json').asFile
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('auditThemeliosIdMigration')
+    dependsOn tasks.named('testTextureDedupeTool')
+    if (textureDedupeEnabled) {
+        dependsOn tasks.named('validateTextureAliases')
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    zip64 = true
+    from('LICENSE') {
+        rename { "${it}_${project.base.archivesName.get()}" }
+    }
+}
+
+apply from: 'gradle/texture-dedupe-audit.gradle'
+apply from: 'gradle/language-validation.gradle'
+apply from: 'gradle/loot-validation.gradle'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = project.base.archivesName.get()
+            version = project.version
+        }
+    }
+}

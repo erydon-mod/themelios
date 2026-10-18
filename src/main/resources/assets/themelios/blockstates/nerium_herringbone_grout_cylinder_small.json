@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/nerium_herringbone_grout_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/nerium_herringbone_grout_cylinder_small"
+    }
+  }
+}

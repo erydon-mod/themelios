@@ -1,0 +1,96 @@
+{
+  "materials": [
+    "aganite",
+    "aterzon",
+    "borealis",
+    "brectite",
+    "calacattum",
+    "chalstrom",
+    "chrysonyx",
+    "etruscus",
+    "gelastrum",
+    "glacium",
+    "hesperion",
+    "imperium",
+    "kelastrion",
+    "kylorion",
+    "latmion",
+    "laurentium",
+    "mielonyx",
+    "nerium",
+    "noxoplis",
+    "porphyros",
+    "portorium",
+    "psamatheon",
+    "rosinium",
+    "sanguenite",
+    "selenephos",
+    "solistra",
+    "striatus"
+  ],
+  "geology": {
+    "marble": [
+      "aterzon",
+      "brectite",
+      "calacattum",
+      "chalstrom",
+      "etruscus",
+      "glacium",
+      "imperium",
+      "kylorion",
+      "laurentium",
+      "nerium",
+      "porphyros",
+      "portorium",
+      "rosinium",
+      "sanguenite",
+      "solistra"
+    ],
+    "limestone": [
+      "kelastrion",
+      "latmion"
+    ],
+    "sandstone": [
+      "psamatheon"
+    ],
+    "onyx": [
+      "chrysonyx",
+      "mielonyx"
+    ],
+    "quartzite": [
+      "gelastrum"
+    ],
+    "sodalite": [
+      "hesperion"
+    ],
+    "labradorite": [
+      "borealis"
+    ],
+    "travertine": [
+      "striatus"
+    ],
+    "agate": [
+      "aganite"
+    ],
+    "alabaster": [
+      "selenephos"
+    ],
+    "gemstone": [
+      "aganite",
+      "borealis"
+    ],
+    "opal": [
+      "noxoplis"
+    ],
+    "blue_stone": [
+      "hesperion"
+    ]
+  },
+  "shared_herringbone_materials": {
+    "borealis": [
+      "kelastrion",
+      "latmion",
+      "psamatheon"
+    ]
+  }
+}

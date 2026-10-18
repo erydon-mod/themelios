@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/hesperion_glacium_weave_bronze_cylinder_small"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/hesperion_glacium_weave_bronze_cylinder_small"
+    }
+  }
+}

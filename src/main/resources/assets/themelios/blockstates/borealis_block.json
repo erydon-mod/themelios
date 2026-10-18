@@ -1,0 +1,7 @@
+﻿{
+  "variants": {
+    "": {
+      "model": "themelios:block/block/borealis_block"
+    }
+  }
+}

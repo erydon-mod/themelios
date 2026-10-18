@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_large",
+  "textures": {
+    "texture": "erydon:block/sanguenite_block_aged",
+    "particle": "erydon:block/sanguenite_block_aged"
+  }
+}

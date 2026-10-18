@@ -1,0 +1,7 @@
+{
+  "parent": "erydon:block/cylinder/cylinder_large",
+  "textures": {
+    "texture": "erydon:block/borealis_rock_block",
+    "particle": "erydon:block/borealis_rock_block"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#themelios:block",
+    "#themelios:cornice_large",
+    "#themelios:cornice_small",
+    "#themelios:cylinder_large",
+    "#themelios:cylinder_small",
+    "#themelios:layer_horizontal",
+    "#themelios:layer_vertical",
+    "#themelios:post",
+    "#themelios:slab",
+    "#themelios:slice_horizontal",
+    "#themelios:slice_vertical",
+    "#themelios:stairs",
+    "#themelios:wall"
+  ]
+}

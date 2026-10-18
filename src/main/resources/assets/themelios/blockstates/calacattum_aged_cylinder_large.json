@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "waterlogged=false": {
+      "model": "erydon:block/cylinder/calacattum_cylinder_large_aged"
+    },
+    "waterlogged=true": {
+      "model": "erydon:block/cylinder/calacattum_cylinder_large_aged"
+    }
+  }
+}
