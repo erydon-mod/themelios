@@ -40,7 +40,7 @@ component. Its SHA-256 is:
 e5bfcf1132c8e12c3fce87d4dfbcb543cfb7202d8fa28ba85c07132e30836437
 ```
 
-`gradle/wrapper/gradle-wrapper.properties` selects Gradle 8.7 as the downloaded
+`gradle/wrapper/gradle-wrapper.properties` selects Gradle 8.10 as the downloaded
 build runtime. The wrapper JAR provenance above describes the checked-in
 launcher binary separately from that configured runtime. The wrapper JAR is
 unmodified, and the launcher scripts retain their upstream copyright and

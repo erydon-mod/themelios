@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 public final class ModItemGroups {
     public static final ItemGroup ERYDON_THEMELIOS = Registry.register(
             Registries.ITEM_GROUP,
-            new Identifier(ErydonThemelios.MOD_ID, "themelios"),
+            Identifier.of(ErydonThemelios.MOD_ID, "themelios"),
             FabricItemGroup.builder()
                     .icon(() -> new ItemStack(ModItems.EMBLEM))
                     .displayName(Text.translatable("itemGroup.themelios"))

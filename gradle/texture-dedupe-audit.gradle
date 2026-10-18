@@ -10,7 +10,6 @@ def sha256Bytes = { byte[] bytes ->
             java.security.MessageDigest.getInstance('SHA-256').digest(bytes)
     )
 }
-
 def inspectTextureJar = { File jarFile ->
     if (!jarFile.isFile()) {
         throw new GradleException("Missing JAR for texture audit: ${jarFile}")

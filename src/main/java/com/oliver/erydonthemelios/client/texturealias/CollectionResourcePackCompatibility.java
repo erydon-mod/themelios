@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.oliver.erydonthemelios.compat.FamilyReleaseCompatibility;
 import net.minecraft.resource.InputSupplier;
 import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ResourcePackInfo;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ import java.util.regex.Pattern;
  */
 public final class CollectionResourcePackCompatibility {
     public static final Identifier COLLECTION_MARKER_ID =
-            new Identifier("erydon", "erydon_collection_pack.json");
+            Identifier.of("erydon", "erydon_collection_pack.json");
 
     private static final Logger LOGGER =
             LoggerFactory.getLogger("ERYDON/ResourcePackCompatibility");
@@ -212,13 +213,8 @@ public final class CollectionResourcePackCompatibility {
         }
 
         @Override
-        public String getName() {
-            return delegate.getName();
-        }
-
-        @Override
-        public boolean isAlwaysStable() {
-            return delegate.isAlwaysStable();
+        public ResourcePackInfo getInfo() {
+            return delegate.getInfo();
         }
 
         @Override

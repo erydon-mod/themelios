@@ -1,10 +1,8 @@
 package com.oliver.erydonthemelios.client.texturealias;
 
-import net.fabricmc.fabric.api.resource.ModResourcePack;
-import net.fabricmc.fabric.impl.resource.loader.GroupResourcePack;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.resource.InputSupplier;
 import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ResourcePackInfo;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
 import net.minecraft.util.Identifier;
@@ -47,14 +45,14 @@ public class TextureAliasResourcePack implements ResourcePack {
             String previousSha = expectedHashesByTarget.putIfAbsent(alias.getValue(), expectedSha);
             if (previousSha != null && !previousSha.equals(expectedSha)) {
                 throw new IOException("Conflicting hashes for texture alias target in pack '"
-                        + delegate.getName() + "': " + alias.getValue());
+                        + delegate.getId() + "': " + alias.getValue());
             }
         }
         for (Map.Entry<String, String> target : expectedHashesByTarget.entrySet()) {
-            Identifier targetId = new Identifier(namespace, target.getKey());
+            Identifier targetId = Identifier.of(namespace, target.getKey());
             InputSupplier<InputStream> supplier = delegate.open(ResourceType.CLIENT_RESOURCES, targetId);
             if (supplier == null) {
-                throw new IOException("Dangling texture alias target in pack '" + delegate.getName()
+                throw new IOException("Dangling texture alias target in pack '" + delegate.getId()
                         + "': " + target.getKey());
             }
             byte[] bytes;
@@ -64,7 +62,7 @@ public class TextureAliasResourcePack implements ResourcePack {
             String actualSha = sha256(bytes);
             if (!actualSha.equals(target.getValue())) {
                 throw new IOException("Texture alias blob hash differs from manifest in pack '"
-                        + delegate.getName() + "': " + target.getKey()
+                        + delegate.getId() + "': " + target.getKey()
                         + " (" + actualSha + " != " + target.getValue() + ")");
             }
         }
@@ -78,9 +76,6 @@ public class TextureAliasResourcePack implements ResourcePack {
             return pack;
         }
 
-        if (pack instanceof GroupResourcePack) {
-            return pack;
-        }
         if (findHandler(pack, namespace) != null) {
             return pack;
         }
@@ -95,7 +90,7 @@ public class TextureAliasResourcePack implements ResourcePack {
             }
             TextureAliasResourcePack aliasPack = new TextureAliasResourcePack(pack, namespace, manifest);
             LOGGER.info("Loaded {} exact texture aliases for namespace {} from pack '{}'",
-                    manifest.aliases().size(), namespace, pack.getName());
+                    manifest.aliases().size(), namespace, pack.getId());
             return aliasPack;
         } catch (IOException | RuntimeException exception) {
             throw closeAndWrapFailure(pack, namespace, exception);
@@ -134,61 +129,6 @@ public class TextureAliasResourcePack implements ResourcePack {
         }
     }
 
-    public static List<ModResourcePack> wrapAllModPacks(
-            List<ModResourcePack> packs,
-            String namespace
-    ) {
-        List<ModResourcePack> wrapped = new ArrayList<>(packs.size());
-        try {
-            for (ModResourcePack pack : packs) {
-                wrapped.add(wrapModPack(pack, namespace));
-            }
-            return List.copyOf(wrapped);
-        } catch (RuntimeException exception) {
-            for (ModResourcePack pack : packs) {
-                try {
-                    pack.close();
-                } catch (RuntimeException closeFailure) {
-                    exception.addSuppressed(closeFailure);
-                }
-            }
-            throw exception;
-        }
-    }
-
-    public static List<ModResourcePack> wrapAllFamilyModPacks(
-            List<ModResourcePack> packs
-    ) {
-        List<ModResourcePack> wrapped = packs;
-        for (String namespace : FAMILY_NAMESPACES) {
-            wrapped = wrapAllModPacks(wrapped, namespace);
-        }
-        return wrapped;
-    }
-
-    private static ModResourcePack wrapModPack(ModResourcePack pack, String namespace) {
-        if (Boolean.getBoolean(DISABLE_PROPERTY)) {
-            return pack;
-        }
-        if (findHandler(pack, namespace) != null) {
-            return pack;
-        }
-
-        try {
-            TextureAliasManifest manifest = TextureAliasManifest.load(pack, namespace);
-            if (manifest == null || manifest.aliases().isEmpty()) {
-                return pack;
-            }
-            ModAliasResourcePack aliasPack =
-                    new ModAliasResourcePack(pack, namespace, manifest);
-            LOGGER.info("Loaded {} exact texture aliases for namespace {} from Fabric mod pack '{}'",
-                    manifest.aliases().size(), namespace, pack.getName());
-            return aliasPack;
-        } catch (IOException | RuntimeException exception) {
-            throw wrapFailure(pack, namespace, exception);
-        }
-    }
-
     static TextureAliasResourcePack findHandler(ResourcePack pack, String namespace) {
         ResourcePack current = pack;
         while (current instanceof TextureAliasResourcePack aliasPack) {
@@ -211,7 +151,7 @@ public class TextureAliasResourcePack implements ResourcePack {
         }
         return delegate.open(
                 ResourceType.CLIENT_RESOURCES,
-                new Identifier(namespace, targetPath)
+                Identifier.of(namespace, targetPath)
         );
     }
 
@@ -244,7 +184,7 @@ public class TextureAliasResourcePack implements ResourcePack {
         if (targetPath == null) {
             return null;
         }
-        return delegate.open(type, new Identifier(namespace, targetPath));
+        return delegate.open(type, Identifier.of(namespace, targetPath));
     }
 
     @Override
@@ -261,7 +201,7 @@ public class TextureAliasResourcePack implements ResourcePack {
         });
 
         for (Map.Entry<String, String> alias : aliases.entrySet()) {
-            Identifier aliasId = new Identifier(namespace, alias.getKey());
+            Identifier aliasId = Identifier.of(namespace, alias.getKey());
             if (!matchesPrefix(aliasId.getPath(), prefix)
                     || physicalIds.contains(aliasId)
                     || delegate.open(type, aliasId) != null) {
@@ -270,10 +210,10 @@ public class TextureAliasResourcePack implements ResourcePack {
 
             InputSupplier<InputStream> target = delegate.open(
                     ResourceType.CLIENT_RESOURCES,
-                    new Identifier(namespace, alias.getValue())
+                    Identifier.of(namespace, alias.getValue())
             );
             if (target == null) {
-                throw new IllegalStateException("Texture alias target disappeared from pack '" + delegate.getName()
+                throw new IllegalStateException("Texture alias target disappeared from pack '" + delegate.getId()
                         + "': " + alias.getKey() + " -> " + alias.getValue());
             }
             consumer.accept(aliasId, target);
@@ -291,13 +231,8 @@ public class TextureAliasResourcePack implements ResourcePack {
     }
 
     @Override
-    public String getName() {
-        return delegate.getName();
-    }
-
-    @Override
-    public boolean isAlwaysStable() {
-        return delegate.isAlwaysStable();
+    public ResourcePackInfo getInfo() {
+        return delegate.getInfo();
     }
 
     @Override
@@ -330,7 +265,7 @@ public class TextureAliasResourcePack implements ResourcePack {
     ) {
         return new IllegalStateException(
                 "Invalid texture alias manifest for namespace " + namespace
-                        + " in pack '" + pack.getName() + "'",
+                        + " in pack '" + pack.getId() + "'",
                 cause
         );
     }
@@ -343,23 +278,4 @@ public class TextureAliasResourcePack implements ResourcePack {
         }
     }
 
-    private static final class ModAliasResourcePack
-            extends TextureAliasResourcePack
-            implements ModResourcePack {
-        private final ModResourcePack modDelegate;
-
-        private ModAliasResourcePack(
-                ModResourcePack delegate,
-                String namespace,
-                TextureAliasManifest manifest
-        ) throws IOException {
-            super(delegate, namespace, manifest);
-            this.modDelegate = delegate;
-        }
-
-        @Override
-        public ModMetadata getFabricModMetadata() {
-            return modDelegate.getFabricModMetadata();
-        }
-    }
 }

@@ -51,9 +51,9 @@ final class SynapheiaManifest {
                 continue;
             }
 
-            Rule rule = parseRule(resourceId, resource.getResourcePackName(), properties, blocks);
+            Rule rule = parseRule(resourceId, resource.getPackId(), properties, blocks);
             rules.add(rule);
-            sourcePacks.add(resource.getResourcePackName());
+            sourcePacks.add(resource.getPackId());
             SynapheiaMetrics.event("ctm_rule_parsed", SynapheiaMode.SYNAPHEIA, 0L, fields(
                     "rule_id", rule.id(), "method", rule.method().propertyValue(),
                     "status", "accepted", "block_count", rule.blocks().size()

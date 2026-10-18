@@ -1,12 +1,12 @@
 package com.oliver.erydonthemelios.client.texturealias;
 
-import net.fabricmc.fabric.api.resource.ModResourcePack;
-import net.fabricmc.fabric.impl.resource.loader.GroupResourcePack;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.resource.InputSupplier;
 import net.minecraft.resource.ResourcePack;
+import net.minecraft.resource.ResourcePackInfo;
+import net.minecraft.resource.ResourcePackSource;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.resource.metadata.ResourceMetadataReader;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.io.ByteArrayInputStream;
@@ -14,18 +14,17 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 final class TextureAliasTestSupport {
     static final String NAMESPACE = "erydon";
     static final String ALIAS_PATH = "textures/block/pilot_alias.png";
-    static final Identifier ALIAS = id(NAMESPACE, ALIAS_PATH);
+    static final Identifier ALIAS = Identifier.of(NAMESPACE, ALIAS_PATH);
 
     private TextureAliasTestSupport() {
     }
@@ -41,65 +40,43 @@ final class TextureAliasTestSupport {
             String aliasPath,
             String contents
     ) {
-        Identifier alias = id(namespace, aliasPath);
+        Identifier alias = Identifier.of(namespace, aliasPath);
         byte[] canonicalBytes = bytes(contents);
         Identifier blob = blobId(namespace, canonicalBytes);
         pack.putBytes(blob, canonicalBytes);
-        addManifest(
-                pack,
-                namespace,
-                linkedAliases(alias, blob),
-                false
-        );
+        LinkedHashMap<Identifier, Identifier> aliases = new LinkedHashMap<>();
+        aliases.put(alias, blob);
+        addManifest(pack, namespace, aliases);
         return new AliasFixture(pack, alias, blob);
     }
 
     static void addManifest(
             FakePack pack,
             String namespace,
-            Map<Identifier, Identifier> aliases,
-            boolean mcmetaPresent
-    ) {
-        addManifest(pack, namespace, aliases, mcmetaPresent, "test");
-    }
-
-    static void addManifest(
-            FakePack pack,
-            String namespace,
-            Map<Identifier, Identifier> aliases,
-            boolean mcmetaPresent,
-            String tier
+            Map<Identifier, Identifier> aliases
     ) {
         pack.put(
-                id(namespace, TextureAliasManifest.MANIFEST_PATH),
-                manifest(namespace, aliases, mcmetaPresent, tier)
+                Identifier.of(namespace, TextureAliasManifest.MANIFEST_PATH),
+                manifest(namespace, aliases)
         );
     }
 
-    static LinkedHashMap<Identifier, Identifier> linkedAliases(
-            Identifier firstAlias,
-            Identifier firstTarget
-    ) {
-        LinkedHashMap<Identifier, Identifier> aliases = new LinkedHashMap<>();
-        aliases.put(firstAlias, firstTarget);
-        return aliases;
-    }
-
     static Identifier blobId(String namespace, byte[] contents) {
-        return id(namespace, "texture_blobs/" + sha256(contents) + ".png");
-    }
-
-    static Identifier id(String namespace, String path) {
-        return new Identifier(namespace, path);
+        return Identifier.of(
+                namespace,
+                "texture_blobs/" + sha256(contents) + ".png"
+        );
     }
 
     static byte[] bytes(String value) {
         return value.getBytes(StandardCharsets.UTF_8);
     }
 
-    static String sha256(byte[] data) {
+    private static String sha256(byte[] data) {
         try {
-            return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(data));
+            return HexFormat.of().formatHex(
+                    MessageDigest.getInstance("SHA-256").digest(data)
+            );
         } catch (NoSuchAlgorithmException exception) {
             throw new IllegalStateException("SHA-256 is unavailable", exception);
         }
@@ -107,14 +84,12 @@ final class TextureAliasTestSupport {
 
     private static String manifest(
             String namespace,
-            Map<Identifier, Identifier> aliases,
-            boolean mcmetaPresent,
-            String tier
+            Map<Identifier, Identifier> aliases
     ) {
         StringBuilder json = new StringBuilder(
                 "{\"schema_version\":1,\"format\":\"erydon-texture-aliases\","
-                        + "\"namespace\":\"" + namespace + "\",\"tier\":\"" + tier
-                        + "\",\"aliases\":["
+                        + "\"namespace\":\"" + namespace + "\",\"tier\":\"test\","
+                        + "\"aliases\":["
         );
         boolean first = true;
         Set<Identifier> blobs = new LinkedHashSet<>();
@@ -125,26 +100,23 @@ final class TextureAliasTestSupport {
             first = false;
             Identifier alias = entry.getKey();
             Identifier target = entry.getValue();
-            String fileSha = hashFromBlobPath(target.getPath());
-            String fullTarget = target.getNamespace().equals(namespace)
-                    ? "assets/" + namespace + "/" + target.getPath()
-                    : target.toString();
+            String fileSha = target.getPath()
+                    .substring("texture_blobs/".length(), target.getPath().length() - 4);
             String logicalPath = alias.getPath();
             if (logicalPath.startsWith("textures/")) {
                 logicalPath = logicalPath.substring("textures/".length());
             }
-            logicalPath = logicalPath.substring(0, logicalPath.length() - ".png".length());
+            logicalPath = logicalPath.substring(0, logicalPath.length() - 4);
             json.append("{\"file_sha256\":\"").append(fileSha)
                     .append("\",\"logical_id\":\"")
                     .append(alias.getNamespace()).append(':').append(logicalPath)
-                    .append("\",\"mcmeta_present\":").append(mcmetaPresent)
-                    .append(",\"mcmeta_sha256\":null,\"path\":\"").append(alias.getPath())
-                    .append("\",\"role\":\"albedo\",\"source\":\"test\",\"target\":\"")
-                    .append(fullTarget)
-                    .append("\",\"tier\":\"").append(tier).append("\"}");
+                    .append("\",\"mcmeta_present\":false,\"mcmeta_sha256\":null,")
+                    .append("\"path\":\"").append(alias.getPath())
+                    .append("\",\"role\":\"albedo\",\"source\":\"test\",")
+                    .append("\"target\":\"assets/").append(namespace).append('/')
+                    .append(target.getPath()).append("\",\"tier\":\"test\"}");
             blobs.add(target);
         }
-
         json.append("],\"blobs\":[");
         first = true;
         for (Identifier blob : blobs) {
@@ -152,33 +124,30 @@ final class TextureAliasTestSupport {
                 json.append(',');
             }
             first = false;
-            json.append("{\"file_sha256\":\"").append(hashFromBlobPath(blob.getPath()))
+            String fileSha = blob.getPath()
+                    .substring("texture_blobs/".length(), blob.getPath().length() - 4);
+            json.append("{\"file_sha256\":\"").append(fileSha)
                     .append("\",\"target\":\"assets/").append(namespace).append('/')
                     .append(blob.getPath()).append("\"}");
         }
         return json.append("]}").toString();
     }
 
-    private static String hashFromBlobPath(String path) {
-        String prefix = "texture_blobs/";
-        String suffix = ".png";
-        if (path.startsWith(prefix) && path.endsWith(suffix)) {
-            return path.substring(prefix.length(), path.length() - suffix.length());
-        }
-        return "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    }
-
     record AliasFixture(FakePack pack, Identifier alias, Identifier blob) {
     }
 
     static class FakePack implements ResourcePack {
-        private final String name;
+        private final ResourcePackInfo info;
         private final Map<Identifier, byte[]> resources = new LinkedHashMap<>();
-        private final Map<Identifier, Integer> supplierReads = new LinkedHashMap<>();
         private int closeCount;
 
-        FakePack(String name) {
-            this.name = name;
+        FakePack(String id) {
+            this.info = new ResourcePackInfo(
+                    id,
+                    Text.literal(id),
+                    ResourcePackSource.NONE,
+                    Optional.empty()
+            );
         }
 
         void put(Identifier id, String value) {
@@ -187,14 +156,6 @@ final class TextureAliasTestSupport {
 
         void putBytes(Identifier id, byte[] value) {
             resources.put(id, value.clone());
-        }
-
-        void resetSupplierReads() {
-            supplierReads.clear();
-        }
-
-        int supplierReads(Identifier id) {
-            return supplierReads.getOrDefault(id, 0);
         }
 
         int closeCount() {
@@ -208,17 +169,12 @@ final class TextureAliasTestSupport {
 
         @Override
         public InputSupplier<InputStream> open(ResourceType type, Identifier id) {
-            if (type != ResourceType.CLIENT_RESOURCES) {
-                return null;
-            }
-            byte[] value = resources.get(id);
-            if (value == null) {
-                return null;
-            }
-            return () -> {
-                supplierReads.merge(id, 1, Integer::sum);
-                return new ByteArrayInputStream(value);
-            };
+            byte[] value = type == ResourceType.CLIENT_RESOURCES
+                    ? resources.get(id)
+                    : null;
+            return value == null
+                    ? null
+                    : () -> new ByteArrayInputStream(value);
         }
 
         @Override
@@ -237,10 +193,7 @@ final class TextureAliasTestSupport {
                     .sorted(Map.Entry.comparingByKey())
                     .forEach(entry -> consumer.accept(
                             entry.getKey(),
-                            () -> {
-                                supplierReads.merge(entry.getKey(), 1, Integer::sum);
-                                return new ByteArrayInputStream(entry.getValue());
-                            }
+                            () -> new ByteArrayInputStream(entry.getValue())
                     ));
         }
 
@@ -260,24 +213,19 @@ final class TextureAliasTestSupport {
         }
 
         @Override
-        public String getName() {
-            return name;
+        public ResourcePackInfo getInfo() {
+            return info;
         }
 
         @Override
         public void close() {
             closeCount++;
         }
-    }
 
-    static final class FakeModPack extends FakePack implements ModResourcePack {
-        FakeModPack(String name) {
-            super(name);
-        }
-
-        @Override
-        public ModMetadata getFabricModMetadata() {
-            return null;
+        private static boolean matchesPrefix(String path, String prefix) {
+            return prefix.isEmpty()
+                    || path.equals(prefix)
+                    || path.startsWith(prefix + "/");
         }
     }
 
@@ -307,30 +255,5 @@ final class TextureAliasTestSupport {
         public Set<String> getNamespaces(ResourceType type) {
             return type == ResourceType.CLIENT_RESOURCES ? namespaces : Set.of();
         }
-    }
-
-    static final class FakeGroupPack extends GroupResourcePack {
-        FakeGroupPack(ResourcePack... packs) {
-            super(ResourceType.CLIENT_RESOURCES, new ArrayList<>(List.of(packs)));
-        }
-
-        @Override
-        public InputSupplier<InputStream> openRoot(String... segments) {
-            return null;
-        }
-
-        @Override
-        public <T> T parseMetadata(ResourceMetadataReader<T> metaReader) {
-            return null;
-        }
-
-        @Override
-        public String getName() {
-            return "fake-group";
-        }
-    }
-
-    private static boolean matchesPrefix(String path, String prefix) {
-        return prefix.isEmpty() || path.equals(prefix) || path.startsWith(prefix + "/");
     }
 }

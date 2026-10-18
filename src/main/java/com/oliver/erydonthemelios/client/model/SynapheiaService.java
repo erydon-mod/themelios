@@ -34,7 +34,7 @@ final class SynapheiaService {
                 if (!ErydonThemelios.MOD_ID.equals(block.getNamespace())) {
                     continue;
                 }
-                Identifier canonical = new Identifier(block.getNamespace(),
+                Identifier canonical = Identifier.of(block.getNamespace(),
                         ThemeliosIdMigration.canonicalPath(block.getPath()));
                 if (!canonical.equals(block)) {
                     mutable.computeIfAbsent(canonical, ignored -> new LinkedHashSet<>()).add(rule);
@@ -42,7 +42,7 @@ final class SynapheiaService {
                 // Extend the active pack's full-block repeat rule only to its registered shape siblings.
                 if (rule.method() == SynapheiaManifest.Method.REPEAT) {
                     for (String shape : ThemeliosShapeFamilies.shapesForFullBlock(canonical.getPath())) {
-                        Identifier sibling = new Identifier(ErydonThemelios.MOD_ID, shape);
+                        Identifier sibling = Identifier.of(ErydonThemelios.MOD_ID, shape);
                         mutable.computeIfAbsent(sibling, ignored -> new LinkedHashSet<>()).add(rule);
                     }
                 }

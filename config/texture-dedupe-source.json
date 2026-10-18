@@ -2,7 +2,7 @@
   "schema_version": 1,
   "sources": [
     {
-      "id": "themelios-native-mc1.20.1",
+      "id": "themelios-native-mc1.21.1",
       "tier": "native",
       "root": "../src/main/resources",
       "namespaces": [

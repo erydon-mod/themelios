@@ -123,7 +123,7 @@ public final class ModBlocks {
     }
 
     private static Identifier id(String name) {
-        return new Identifier(ErydonThemelios.MOD_ID, name);
+        return Identifier.of(ErydonThemelios.MOD_ID, name);
     }
 
     private static List<Block> blocksFor(List<String> names) {

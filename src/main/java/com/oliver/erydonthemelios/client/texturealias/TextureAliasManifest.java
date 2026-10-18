@@ -39,7 +39,7 @@ final class TextureAliasManifest {
     }
 
     static TextureAliasManifest load(ResourcePack pack, String namespace) throws IOException {
-        Identifier manifestId = new Identifier(namespace, MANIFEST_PATH);
+        Identifier manifestId = Identifier.of(namespace, MANIFEST_PATH);
         InputSupplier<InputStream> supplier = pack.open(ResourceType.CLIENT_RESOURCES, manifestId);
         if (supplier == null) {
             return null;
@@ -157,7 +157,7 @@ final class TextureAliasManifest {
             throw new IOException("Invalid " + label + " path in " + manifestId + ": " + path);
         }
         try {
-            new Identifier(namespace, path);
+            Identifier.of(namespace, path);
         } catch (RuntimeException exception) {
             throw new IOException("Invalid " + label + " path in " + manifestId + ": " + path, exception);
         }

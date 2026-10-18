@@ -2,8 +2,6 @@ package com.oliver.erydonthemelios.mixin.client.texturealias;
 
 import com.oliver.erydonthemelios.client.texturealias.CollectionResourcePackCompatibility;
 import com.oliver.erydonthemelios.client.texturealias.FamilyTextureAliasCoordinator;
-import net.fabricmc.fabric.impl.resource.loader.GroupResourcePack;
-import net.fabricmc.fabric.impl.resource.loader.ResourcePackSourceTracker;
 import net.minecraft.resource.ResourcePack;
 import net.minecraft.resource.ResourcePackCompatibility;
 import net.minecraft.resource.ResourcePackProfile;
@@ -30,7 +28,7 @@ abstract class ResourcePackProfileMixin {
         if (themelios$legacyCollectionPack == null) {
             themelios$legacyCollectionPack =
                     CollectionResourcePackCompatibility.shouldMarkTooOld(
-                            profile.getName(),
+                            profile.getId(),
                             profile.getDescription().getString()
                     );
         }
@@ -50,34 +48,16 @@ abstract class ResourcePackProfileMixin {
         ResourcePack original = info.getReturnValue();
         ResourcePackProfile profile = (ResourcePackProfile) (Object) this;
         ResourcePack pack = CollectionResourcePackCompatibility.disableIfLegacy(
-                profile.getName(),
+                profile.getId(),
                 profile.getDescription().getString(),
                 original
         );
-        if (pack != original) {
-            ResourcePackSourceTracker.setSource(
-                    pack,
-                    ResourcePackSourceTracker.getSource(original)
-            );
-        }
-        if (pack instanceof GroupResourcePack) {
-            info.setReturnValue(pack);
-            return;
-        }
-
         ResourcePack wrapped =
                 FamilyTextureAliasCoordinator.wrapFamilyNamespaces(pack);
-        if (wrapped == pack) {
-            if (pack != original) {
-                info.setReturnValue(pack);
-            }
-            return;
+        if (wrapped != pack) {
+            info.setReturnValue(wrapped);
+        } else if (pack != original) {
+            info.setReturnValue(pack);
         }
-
-        ResourcePackSourceTracker.setSource(
-                wrapped,
-                ResourcePackSourceTracker.getSource(pack)
-        );
-        info.setReturnValue(wrapped);
     }
 }

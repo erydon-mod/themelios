@@ -55,12 +55,12 @@ final class SynapheiaEngineTest {
     @Test
     void legacyAgedRulesAlsoIndexCanonicalBlocks() {
         List<Identifier> tiles = IntStream.range(0, 36)
-                .mapToObj(index -> new Identifier("minecraft", "optifine/ctm/aganite/" + index))
+                .mapToObj(index -> Identifier.of("minecraft", "optifine/ctm/aganite/" + index))
                 .toList();
-        Identifier legacy = new Identifier("themelios", "aganite_block_aged");
-        Identifier canonical = new Identifier("themelios", "aganite_aged_block");
+        Identifier legacy = Identifier.of("themelios", "aganite_block_aged");
+        Identifier canonical = Identifier.of("themelios", "aganite_aged_block");
         SynapheiaManifest.Rule rule = new SynapheiaManifest.Rule(
-                new Identifier("minecraft", "optifine/ctm/themelios/aganite.properties"),
+                Identifier.of("minecraft", "optifine/ctm/themelios/aganite.properties"),
                 "test", SynapheiaManifest.Method.REPEAT, tiles,
                 Set.of(Direction.values()), Set.of(legacy), Set.of(), true, 10,
                 SynapheiaManifest.OverlayLayer.CUTOUT);
@@ -105,7 +105,7 @@ final class SynapheiaEngineTest {
                 String relative = Path.of("src/main/resources/assets/minecraft")
                         .relativize(path).toString().replace('\\', '/');
                 SynapheiaManifest.Rule rule = SynapheiaManifest.parseRule(
-                        new Identifier("minecraft", relative), "production-test", properties, blocks);
+                        Identifier.of("minecraft", relative), "production-test", properties, blocks);
                 if (rule.method() == SynapheiaManifest.Method.REPEAT) {
                     repeat++;
                 } else {

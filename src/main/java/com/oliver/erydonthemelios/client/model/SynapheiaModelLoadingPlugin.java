@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
 
 public final class SynapheiaModelLoadingPlugin
         implements PreparableModelLoadingPlugin<SynapheiaManifest.Prepared> {
-    private static final Identifier CTM_PHASE = new Identifier(ErydonThemelios.MOD_ID, "synapheia_ctm");
+    private static final Identifier CTM_PHASE = Identifier.of(ErydonThemelios.MOD_ID, "synapheia_ctm");
 
     public static void register() {
         PreparableModelLoadingPlugin.register(SynapheiaModelLoadingPlugin::load,
@@ -50,15 +50,16 @@ public final class SynapheiaModelLoadingPlugin
                                         ModelLoadingPlugin.Context pluginContext) {
         SynapheiaService.Snapshot snapshot = SynapheiaService.publish(prepared);
         pluginContext.modifyModelAfterBake().register(CTM_PHASE, (model, context) -> {
-            model = CylinderCapGeometry.repair(context.id(), model);
-            if (model == null || !(context.id() instanceof ModelIdentifier modelId)
-                    || "inventory".equals(modelId.getVariant())) {
+            model = CylinderCapGeometry.repair(context.resourceId() != null
+                    ? context.resourceId() : context.topLevelId() == null ? null : context.topLevelId().id(), model);
+            ModelIdentifier modelId = context.topLevelId();
+            if (model == null || modelId == null || "inventory".equals(modelId.getVariant())) {
                 return model;
             }
-            if (!ErydonThemelios.MOD_ID.equals(modelId.getNamespace())) {
+            Identifier blockId = modelId.id();
+            if (!ErydonThemelios.MOD_ID.equals(blockId.getNamespace())) {
                 return model;
             }
-            Identifier blockId = new Identifier(modelId.getNamespace(), modelId.getPath());
             if (snapshot.rulesFor(blockId).isEmpty()) {
                 return model;
             }

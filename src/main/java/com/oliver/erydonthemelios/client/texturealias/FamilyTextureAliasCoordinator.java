@@ -1,6 +1,5 @@
 package com.oliver.erydonthemelios.client.texturealias;
 
-import net.fabricmc.fabric.api.resource.ModResourcePack;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.metadata.CustomValue;
@@ -10,11 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Elects one installed ERYDON-family mod to install the shared alias wrappers.
+ * Elects one installed ERYDON-family mod to install the shared alias wrapper.
  * Every family mod carries the resolver so it also remains fully standalone.
  */
 public final class FamilyTextureAliasCoordinator {
@@ -33,14 +31,6 @@ public final class FamilyTextureAliasCoordinator {
         return isLeader()
                 ? TextureAliasResourcePack.wrapFamilyNamespaces(pack)
                 : pack;
-    }
-
-    public static List<ModResourcePack> wrapAllFamilyModPacks(
-            List<ModResourcePack> packs
-    ) {
-        return isLeader()
-                ? TextureAliasResourcePack.wrapAllFamilyModPacks(packs)
-                : packs;
     }
 
     public static boolean isLeader() {

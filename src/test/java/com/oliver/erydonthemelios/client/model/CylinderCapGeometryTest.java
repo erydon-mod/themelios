@@ -55,11 +55,11 @@ final class CylinderCapGeometryTest {
 
     @Test
     void bakedCapsUseOneUvProjectionAndPreserveTheSideQuads() throws Exception {
-        var id = new net.minecraft.util.Identifier("erydon", "block/aganite_block");
+        var id = net.minecraft.util.Identifier.of("erydon", "block/aganite_block");
         var contents = new net.minecraft.client.texture.SpriteContents(id,
                 new net.minecraft.client.texture.SpriteDimensions(16, 16),
                 new net.minecraft.client.texture.NativeImage(16, 16, false),
-                net.minecraft.client.resource.metadata.AnimationResourceMetadata.EMPTY);
+                net.minecraft.resource.metadata.ResourceMetadata.NONE);
         var sprite = new TestSprite(id, contents);
         for (String size : List.of("small", "large")) {
             var faces = new java.util.EnumMap<net.minecraft.util.math.Direction,
@@ -82,7 +82,7 @@ final class CylinderCapGeometryTest {
             faces.get(net.minecraft.util.math.Direction.NORTH).add(side);
             var original = new net.minecraft.client.render.model.BasicBakedModel(List.of(), faces,
                     true, true, true, sprite, null, null);
-            var modelId = new net.minecraft.util.Identifier("erydon", "block/cylinder/aganite_cylinder_" + size);
+            var modelId = net.minecraft.util.Identifier.of("erydon", "block/cylinder/aganite_cylinder_" + size);
             var repaired = CylinderCapGeometry.repair(modelId, original);
             assertNotSame(original, repaired);
             var random = net.minecraft.util.math.random.Random.create(0);

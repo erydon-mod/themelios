@@ -82,7 +82,7 @@ class IdAliasSearchVocabularyTest {
 
     @Test
     void foreignItemsDoNotAddSearchTextOrAllocateAReplacementString() {
-        assertTrue(IdAliasSearchVocabulary.terms(new Identifier("minecraft", "stone")).isEmpty());
+        assertTrue(IdAliasSearchVocabulary.terms(Identifier.of("minecraft", "stone")).isEmpty());
         String original = new String("stone");
         assertSame(original, IdAliasSearchVocabulary.appendTerms(original, List.of(), false));
         assertNull(IdAliasSearchVocabulary.appendTerms(null, List.of(), false));

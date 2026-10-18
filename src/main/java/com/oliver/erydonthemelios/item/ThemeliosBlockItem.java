@@ -3,15 +3,13 @@ package com.oliver.erydonthemelios.item;
 import com.oliver.erydonthemelios.ErydonThemelios;
 import com.oliver.erydonthemelios.client.migration.IdAliasSearchVocabulary;
 import net.minecraft.block.Block;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -22,9 +20,10 @@ public final class ThemeliosBlockItem extends BlockItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
-        if (world != null || !context.isCreative()) {
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context,
+                              List<Text> tooltip, TooltipType type) {
+        super.appendTooltip(stack, context, tooltip, type);
+        if (!type.isCreative()) {
             return;
         }
 

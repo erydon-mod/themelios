@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 public final class ModItems {
     public static final Item EMBLEM = Registry.register(
             Registries.ITEM,
-            new Identifier(ErydonThemelios.MOD_ID, "emblem"),
+            Identifier.of(ErydonThemelios.MOD_ID, "emblem"),
             new Item(new Item.Settings())
     );
 

@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.6.12'
+    id 'fabric-loom' version '1.8.9'
     id 'maven-publish'
 }
 
@@ -38,7 +38,7 @@ def textureDedupePython = providers.gradleProperty('textureDedupePython')
 def textureDedupeTool = file('tools/texture_dedupe.py')
 def textureDedupeTests = file('tools/test_texture_dedupe.py')
 def textureDedupeConfig = file('config/texture-dedupe-source.json')
-def textureDedupeSourceId = 'themelios-native-mc1.20.1'
+def textureDedupeSourceId = 'themelios-native-mc1.21.1'
 def textureDedupeReportDir = layout.buildDirectory.dir('reports/texture-dedupe')
 def textureDedupeInventoryJson = textureDedupeReportDir.map {
     it.file('inventory.json')
@@ -62,28 +62,19 @@ repositories {
     mavenCentral()
 }
 
-configurations.configureEach {
-    resolutionStrategy.eachDependency { dependency ->
-        if (dependency.requested.group == 'org.lwjgl') {
-            dependency.useVersion '3.3.1'
-        }
-    }
-}
-
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.785"
-    modCompileOnly("mezz.jei:jei-1.20.1-fabric:15.16.2.73") {
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modCompileOnly("mezz.jei:jei-1.21.1-fabric:${jei_version}") {
         transitive = false
     }
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
 
-    modRuntimeOnly "maven.modrinth:sodium:mc1.20.1-0.5.13-fabric"
-    modRuntimeOnly "maven.modrinth:indium:1.0.36+mc1.20.1"
-    modRuntimeOnly "maven.modrinth:iris:1.7.6+1.20.1"
+    modRuntimeOnly "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
+    modRuntimeOnly "maven.modrinth:iris:1.8.8+1.21.1-fabric"
 
     testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
 
@@ -95,7 +86,7 @@ dependencies {
 loom {
     runs {
         client {
-            programArgs '--gameDir', file('run-dev').absolutePath
+            runDir 'run-dev'
             vmArgs "-Xms1G", "-Xmx4G"
         }
     }
@@ -103,12 +94,12 @@ loom {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.release = 17
+    options.release = 21
     options.encoding = 'UTF-8'
 }
 

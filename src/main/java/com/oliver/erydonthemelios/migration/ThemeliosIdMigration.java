@@ -253,6 +253,6 @@ public final class ThemeliosIdMigration {
     }
 
     private static Identifier id(String path) {
-        return new Identifier(ErydonThemelios.MOD_ID, path);
+        return Identifier.of(ErydonThemelios.MOD_ID, path);
     }
 }

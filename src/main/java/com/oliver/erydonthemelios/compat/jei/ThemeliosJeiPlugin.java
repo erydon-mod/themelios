@@ -16,7 +16,7 @@ import java.util.List;
 /** Supplies generated old/current names and IDs to JEI search. */
 @JeiPlugin
 public final class ThemeliosJeiPlugin implements IModPlugin {
-    private static final Identifier PLUGIN_UID = new Identifier(ErydonThemelios.MOD_ID, "jei");
+    private static final Identifier PLUGIN_UID = Identifier.of(ErydonThemelios.MOD_ID, "jei");
 
     @Override
     public Identifier getPluginUid() {
