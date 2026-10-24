@@ -15,8 +15,14 @@ tasks.register('testCatalogueTags', Exec) {
     commandLine 'python', '-B', '-m', 'unittest', 'tools/test_catalogue_tags.py'
 }
 
+tasks.register('verifyInventoryIcons', Exec) {
+    group = 'verification'
+    description = 'Checks every item preview against its own native CTM artwork, preserving composed inlays.'
+    commandLine 'python', '-B', 'tools/audit_inventory_icons.py'
+}
+
 tasks.named('check') {
-    dependsOn tasks.named('verifyCatalogueTags'), tasks.named('testCatalogueTags')
+    dependsOn tasks.named('verifyCatalogueTags'), tasks.named('testCatalogueTags'), tasks.named('verifyInventoryIcons')
 }
 
 group = maven_group
