@@ -37,8 +37,10 @@ bash ./gradlew --no-daemon check
 bash ./gradlew --no-daemon runGameTest
 ```
 
-`check` verifies the catalogue, translations, loot resources, ID aliases and
-texture packaging. `runGameTest` tests real server loot in an isolated
+`check` verifies the catalogue, translations, loot resources, ID aliases,
+inventory previews and texture packaging. Plain and patterned previews match
+their native connected-texture artwork; composed metal-inlay previews retain
+their dedicated artwork. `runGameTest` tests real server loot in an isolated
 `build/gametest` world, including stacked quantities and a data-pack override;
 it writes `build/reports/gametest/loot.xml`. The test mod is separate from
 production sources and does not open player saves.
