@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.StoneFinishResourceManagerMixin",
+    "client.compat.continuity.SynapheiaOwnershipMixin",
     "client.compat.axiom.BlockListEntryMixin",
     "client.compat.rei.ReiIdentifierArgumentTypeMixin",
     "client.compat.rei.ReiTextArgumentTypeMixin"
