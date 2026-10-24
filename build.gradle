@@ -209,6 +209,8 @@ tasks.named('processResources') {
         inputs.files(textureDedupeTool, textureDedupeConfig, textureDedupePlan)
     }
     doFirst {
+        // Remove the formerly shipped, unreferenced master on incremental runs too.
+        project.delete(new File(destinationDir, 'assets/themelios/logo.png'))
         project.delete(fileTree(destinationDir) {
             include 'assets/*/texture_aliases/**'
             include 'assets/*/texture_blobs/**'
@@ -297,3 +299,5 @@ publishing {
         }
     }
 }
+
+apply from: 'gradle/branding-validation.gradle'
