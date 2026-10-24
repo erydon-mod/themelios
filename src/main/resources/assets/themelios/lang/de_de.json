@@ -3100,5 +3100,20 @@
   "tag.item.color.bronze": "Bronze",
   "tag.item.color.silver": "Silber",
   "tag.item.style.byzantine": "Byzantinisch",
-  "tag.item.style.guilloche": "Guilloche"
+  "tag.item.style.guilloche": "Guilloche",
+  "rei_group.themelios.slabs": "ERYDON Themelios Stufen",
+  "rei_group.themelios.stairs": "ERYDON Themelios Treppen",
+  "rei_group.themelios.walls": "ERYDON Themelios Mauern",
+  "rei_group.themelios.layers": "ERYDON Themelios Schichten",
+  "rei_group.themelios.slices_and_posts": "ERYDON Themelios Scheiben und Pfosten",
+  "rei_group.themelios.cylinders": "ERYDON Themelios Zylinder",
+  "rei_group.themelios.cornices": "ERYDON Themelios Gesimse",
+  "jei_info.themelios.slabs": "Stufen sind halbhohe Bauteile, die in der unteren oder oberen Hälfte eines Blockraums platziert werden können. Zwei gleiche Stufen können eine Doppelstufe bilden.",
+  "jei_info.themelios.stairs": "Treppen bilden abgestufte Flächen für Wege, Aufgänge und Dächer. Mit den Suchbegriffen Stufen oder Treppe findest du sie schnell.",
+  "jei_info.themelios.walls": "Mauern bilden niedrige Begrenzungen und verbinden sich mit benachbarten Blöcken. Suche nach Mauern, um das gewünschte Material und die Oberfläche zu finden.",
+  "jei_info.themelios.layers": "Schichten sind dünne Dekorplatten. Horizontale und vertikale Varianten ermöglichen Verkleidungen und Zierleisten in kleinen Abstufungen.",
+  "jei_info.themelios.slices_and_posts": "Scheiben und Pfosten sind kleine Bauteile für feine Details. Suche nach dünn, Scheibe, Achtel, Balken oder Stab.",
+  "jei_info.themelios.cylinders": "Zylinder sind runde Bauteile in kleiner und großer Ausführung. Suche nach Zylinder, Säule, Pfeiler oder rund.",
+  "jei_info.themelios.cornices": "Gesimse sind dekorative Zierleisten in kleiner und großer Ausführung zum Abschluss von Kanten. Suche nach Gesims, Zierleiste oder Leiste.",
+  "jei_info.themelios.weaves": "Geflechtblöcke verbinden zwei Steinmaterialien zu einer gemusterten Oberfläche. Jedes Geflecht wird unter dem ersten Material in seinem Namen einsortiert."
 }
