@@ -22,6 +22,15 @@ public final class SynapheiaModelLoadingPlugin
                 new SynapheiaModelLoadingPlugin());
     }
 
+    /** Only placed Themelios models with active rules belong to Synapheia. */
+    public static boolean ownsCtmModel(ModelIdentifier modelId) {
+        if (modelId == null || "inventory".equals(modelId.getVariant())
+                || !ErydonThemelios.MOD_ID.equals(modelId.id().getNamespace())) {
+            return false;
+        }
+        return !SynapheiaService.current().rulesFor(modelId.id()).isEmpty();
+    }
+
     public static CompletableFuture<SynapheiaManifest.Prepared> load(ResourceManager manager, Executor executor) {
         long startedNanos = System.nanoTime();
         SynapheiaMetrics.event("resource_reload_phase", SynapheiaMode.SYNAPHEIA, 0L, fields(
@@ -57,7 +66,7 @@ public final class SynapheiaModelLoadingPlugin
                 return model;
             }
             Identifier blockId = modelId.id();
-            if (!ErydonThemelios.MOD_ID.equals(blockId.getNamespace())) {
+            if (!ownsCtmModel(modelId)) {
                 return model;
             }
             if (snapshot.rulesFor(blockId).isEmpty()) {

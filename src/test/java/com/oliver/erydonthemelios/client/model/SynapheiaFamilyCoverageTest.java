@@ -1,6 +1,7 @@
 package com.oliver.erydonthemelios.client.model;
 
 import com.oliver.erydonthemelios.ThemeliosShapeFamilies;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.junit.jupiter.api.Test;
@@ -128,6 +129,39 @@ final class SynapheiaFamilyCoverageTest {
                 Direction.UP, source));
         assertTrue(snapshot.rulesFor(id("themelios:aganite_slab")).isEmpty());
         assertTrue(snapshot.rulesFor(id("themelios:aganite_cylinder_small")).isEmpty());
+    }
+
+    @Test
+    void everyProductionSlabStateHasOneCtmOwnerAndForeignModelsKeepTheirs() throws Exception {
+        publish(productionRules());
+        Path blockstates = Path.of("src/main/resources/assets/themelios/blockstates");
+        int checked = 0;
+        try (var paths = Files.list(blockstates)) {
+            for (Path path : paths.filter(file -> file.toString().endsWith("_slab.json")).toList()) {
+                String slab = path.getFileName().toString().replace(".json", "");
+                for (String type : List.of("bottom", "top", "double")) {
+                    assertTrue(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                            new ModelIdentifier(id("themelios:" + slab), "type=" + type)), slab);
+                    checked++;
+                }
+                assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                        new ModelIdentifier(id("themelios:" + slab), "inventory")), slab);
+                assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                        new ModelIdentifier(id("erydon:" + slab), "type=bottom")), slab);
+            }
+        }
+        assertEquals(720, checked, "All 240 material/finish slabs have three placed variants.");
+        assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(null),
+                "Component model resources have no placed blockstate model identifier.");
+        assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                new ModelIdentifier(id("minecraft:stone"), "")));
+        assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                new ModelIdentifier(id("themelios:imaginary_slab"), "type=bottom")));
+
+        publish(List.of());
+        assertFalse(SynapheiaModelLoadingPlugin.ownsCtmModel(
+                new ModelIdentifier(id("themelios:aganite_slab"), "type=bottom")),
+                "A resource reload without a matching rule releases CTM ownership.");
     }
 
     @Test

@@ -12,6 +12,9 @@ import java.util.Set;
 public final class ThemeliosMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (mixinClassName.contains(".compat.continuity.")) {
+            return FabricLoader.getInstance().isModLoaded("continuity");
+        }
         if (mixinClassName.contains(".compat.rei.")) {
             return FabricLoader.getInstance().isModLoaded("roughlyenoughitems");
         }
