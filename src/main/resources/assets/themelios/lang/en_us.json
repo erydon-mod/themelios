@@ -3100,5 +3100,20 @@
     "tag.item.color.bronze": "Bronze",
     "tag.item.color.silver": "Silver",
     "tag.item.style.byzantine": "Byzantine",
-    "tag.item.style.guilloche": "Guilloche"
+    "tag.item.style.guilloche": "Guilloche",
+    "rei_group.themelios.slabs": "ERYDON Themelios Slabs",
+    "rei_group.themelios.stairs": "ERYDON Themelios Stairs",
+    "rei_group.themelios.walls": "ERYDON Themelios Walls",
+    "rei_group.themelios.layers": "ERYDON Themelios Layers",
+    "rei_group.themelios.slices_and_posts": "ERYDON Themelios Slices and Posts",
+    "rei_group.themelios.cylinders": "ERYDON Themelios Cylinders",
+    "rei_group.themelios.cornices": "ERYDON Themelios Cornices",
+    "jei_info.themelios.slabs": "Slabs are half-height building pieces that can be placed at the bottom or top of a block space. Two matching slabs can form a double slab.",
+    "jei_info.themelios.stairs": "Stairs form stepped surfaces for paths, steps and roofs. Search for steps or staircase to find them quickly.",
+    "jei_info.themelios.walls": "Walls form low barriers and connect to nearby blocks. Search for walls to find the material and finish you need.",
+    "jei_info.themelios.layers": "Layers are thin decorative panels. Horizontal and vertical variants let you build up cladding and trim in small increments.",
+    "jei_info.themelios.slices_and_posts": "Slices and posts are small shape pieces for fine detailing. Search for thin, slice, eighth, beam or rod.",
+    "jei_info.themelios.cylinders": "Cylinders are round building pieces in small and large sizes. Search for cylinder, column, pillar or round.",
+    "jei_info.themelios.cornices": "Cornices are decorative mouldings in small and large sizes for finishing edges. Search for cornice, moulding, molding or trim.",
+    "jei_info.themelios.weaves": "Weave blocks combine two stone materials in a patterned surface. Each weave is ordered under the first material in its name."
 }

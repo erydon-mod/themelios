@@ -76,6 +76,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.785"
+    // Match ERYDON's development client; newer REI Maven builds require newer Loom.
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.1.740"
     modCompileOnly("mezz.jei:jei-1.20.1-fabric:15.16.2.73") {
         transitive = false
     }

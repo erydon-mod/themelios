@@ -22,6 +22,9 @@
     "client": [
       "com.oliver.erydonthemelios.ErydonThemeliosClient"
     ],
+    "rei_client": [
+      "com.oliver.erydonthemelios.compat.rei.ThemeliosReiClientPlugin"
+    ],
     "emi": [
       "com.oliver.erydonthemelios.compat.emi.ThemeliosEmiPlugin"
     ]

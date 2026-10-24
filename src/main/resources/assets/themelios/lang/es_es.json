@@ -3100,5 +3100,20 @@
   "tag.item.color.bronze": "Bronce",
   "tag.item.color.silver": "Plata",
   "tag.item.style.byzantine": "Bizantino",
-  "tag.item.style.guilloche": "Guilloche"
+  "tag.item.style.guilloche": "Guilloche",
+  "rei_group.themelios.slabs": "Losas de ERYDON Themelios",
+  "rei_group.themelios.stairs": "Escaleras de ERYDON Themelios",
+  "rei_group.themelios.walls": "Muros de ERYDON Themelios",
+  "rei_group.themelios.layers": "Capas de ERYDON Themelios",
+  "rei_group.themelios.slices_and_posts": "Láminas y postes de ERYDON Themelios",
+  "rei_group.themelios.cylinders": "Cilindros de ERYDON Themelios",
+  "rei_group.themelios.cornices": "Cornisas de ERYDON Themelios",
+  "jei_info.themelios.slabs": "Las losas son piezas de media altura que se pueden colocar en la mitad inferior o superior de un espacio de bloque. Dos losas iguales pueden formar una losa doble.",
+  "jei_info.themelios.stairs": "Las escaleras forman superficies escalonadas para caminos, accesos y tejados. Busca peldaños o escalera para encontrarlas rápidamente.",
+  "jei_info.themelios.walls": "Los muros forman barreras bajas y se conectan con los bloques cercanos. Busca muros para encontrar el material y el acabado que necesitas.",
+  "jei_info.themelios.layers": "Las capas son paneles decorativos finos. Las variantes horizontales y verticales permiten crear revestimientos y molduras en pequeños incrementos.",
+  "jei_info.themelios.slices_and_posts": "Las láminas y los postes son piezas pequeñas para detalles finos. Busca fino, lámina, octavo, viga o vara.",
+  "jei_info.themelios.cylinders": "Los cilindros son piezas redondas de construcción en tamaños pequeño y grande. Busca cilindro, columna, pilar o redondo.",
+  "jei_info.themelios.cornices": "Las cornisas son molduras decorativas en tamaños pequeño y grande para rematar bordes. Busca cornisa, moldura o adorno.",
+  "jei_info.themelios.weaves": "Los bloques de tejido combinan dos materiales de piedra en una superficie con patrón. Cada tejido se ordena bajo el primer material de su nombre."
 }

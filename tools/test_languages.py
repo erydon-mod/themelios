@@ -16,7 +16,7 @@ class LanguageCoverageTest(unittest.TestCase):
     def test_all_registered_names_and_live_search_groups_have_three_languages(self):
         report = languages.synchronise(check=True)
         self.assertEqual(2940, report["registered_blocks"])
-        self.assertEqual(3102, report["language_keys"])
+        self.assertEqual(3117, report["language_keys"])
         self.assertEqual(23, report["search_groups"])
         self.assertEqual(131, report["exported_item_tags"])
 
