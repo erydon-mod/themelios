@@ -114,7 +114,7 @@ public final class IdAliasSearchVocabulary {
         CYLINDERS("cylinders", "cylinders", "column", "columns", "pillar", "round"),
         CORNICES("cornices", "cornices", "moulding", "molding", "trim"),
         BLOCKS("blocks", "building block"),
-        STANDARD_SURFACES("standard_surfaces", "polished", "honed", "mirror"),
+        STANDARD_SURFACES("standard_surfaces", "polished", "honed", "ganosis", "mirror"),
         AGED("aged", "weathered"),
         ROCK("rock", "rough stone", "raw stone"),
         ASHLAR("ashlar", "masonry", "cut stone"),

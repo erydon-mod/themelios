@@ -4,6 +4,7 @@
   "plugin": "com.oliver.erydonthemelios.mixin.ThemeliosMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "client.StoneFinishResourceManagerMixin",
     "client.compat.axiom.BlockListEntryMixin",
     "client.compat.rei.ReiIdentifierArgumentTypeMixin",
     "client.compat.rei.ReiTextArgumentTypeMixin"

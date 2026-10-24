@@ -48,7 +48,7 @@ class IdAliasSearchVocabularyTest {
         assertTerms("aganite_rock_block", "rough stone", "raw stone");
         assertTerms("aganite_guilloche_silver_block", "byzantine", "metal inlay");
         assertTerms("aganite_rosette_bronze_block", "rose", "rosette inlay");
-        assertTerms("aganite_cylinder_small", "polished", "honed", "mirror");
+        assertTerms("aganite_cylinder_small", "polished", "honed", "ganosis", "mirror");
         for (String path : List.of("aganite_aged_block", "aganite_rock_stairs", "aganite_ashlar_layer",
                 "aganite_hewn_post", "aganite_rusticated_cylinder_large", "aganite_guilloche_bronze_block")) {
             assertFalse(IdAliasSearchVocabulary.termsForPath(path).contains("polished"), path);
