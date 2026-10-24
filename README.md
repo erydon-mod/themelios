@@ -1,5 +1,7 @@
 # ERYDON Themelios for Fabric 1.21.1
 
+![ERYDON Themelios animated logo](docs/branding/themelios-logo.gif)
+
 ERYDON Themelios provides ERYDON's compact catalogue of basic architectural shapes
 for Minecraft 1.21.1.
 

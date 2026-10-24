@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "project": "ERYDON Themelios 1.21.1",
+  "assets": [
+    {
+      "path": "docs/branding/themelios-logo.gif",
+      "role": "readme_logo",
+      "sha256": "fe20938752b7634624804125000799ee253867441c8e99ab1c758a08f9beb74e",
+      "bytes": 2822675,
+      "size": [
+        480,
+        166
+      ],
+      "frames": 142,
+      "readme": "README.md"
+    },
+    {
+      "path": "src/main/resources/assets/themelios/icon.png",
+      "role": "static_icon",
+      "sha256": "0ea749799eb673bc694f50b24cb2dcfd882c9d7d4176a0e29b10406e10685253",
+      "bytes": 223545,
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "src/main/resources/assets/themelios/textures/item/emblem.png",
+      "role": "creative_emblem",
+      "sha256": "f13b4ba31aeec74607f8fe471bf73035c1820717732a6659cd08454878298428",
+      "bytes": 235983,
+      "size": [
+        64,
+        2432
+      ],
+      "frames": 38,
+      "frame_size": [
+        64,
+        64
+      ]
+    }
+  ],
+  "runtime_roots": [
+    "src/main/resources/assets"
+  ],
+  "references": [
+    {
+      "path": "src/main/resources/fabric.mod.json",
+      "pointer": [
+        "icon"
+      ],
+      "equals": "assets/themelios/icon.png"
+    },
+    {
+      "path": "src/main/resources/assets/themelios/models/item/emblem.json",
+      "pointer": [
+        "textures",
+        "layer0"
+      ],
+      "equals": "themelios:item/emblem"
+    },
+    {
+      "path": "src/main/java/com/oliver/erydonthemelios/ModItemGroups.java",
+      "pattern": "ModItems\\.EMBLEM"
+    }
+  ],
+  "forbidden": [
+    "src/main/resources/assets/themelios/logo.png"
+  ]
+}

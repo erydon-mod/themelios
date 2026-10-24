@@ -68,6 +68,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
     modCompileOnly("mezz.jei:jei-1.21.1-fabric:${jei_version}") {
         transitive = false
     }
@@ -198,6 +199,8 @@ tasks.named('processResources') {
         inputs.files(textureDedupeTool, textureDedupeConfig, textureDedupePlan)
     }
     doFirst {
+        // Remove the formerly shipped, unreferenced master on incremental runs too.
+        project.delete(new File(destinationDir, 'assets/themelios/logo.png'))
         project.delete(fileTree(destinationDir) {
             include 'assets/*/texture_aliases/**'
             include 'assets/*/texture_blobs/**'
@@ -286,3 +289,5 @@ publishing {
         }
     }
 }
+
+apply from: 'gradle/branding-validation.gradle'
